@@ -10,7 +10,9 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="index.js"></script>
     <!-- Leap Motion API -->
+
     <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
     <!-- Leap Motion Controller -->
     <script src='static/js/leapController.js'></script>
@@ -21,13 +23,18 @@
   <body>
     <div id='content'>
       <div id='graph'></div>
+      <div id='info'>
+        <div id="info_inner">
+          <p>info panel</p>
+          <p>asdhf;lasdflajksdfsladjf;lsadf;dklaowirjaiwjcasdf</p>
+          </div>
+      </div>
       <div id='search'>
         <input id='search_box' type='text' name='search'></input>
         <div id='search-exit-logo'>
           <i class='material-icons'>search</i> <!-- change to clear when in focus. -->
         </div>
       </div>
-      <div id='info'></div>
     </div>
   </body>
 </html>
