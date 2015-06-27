@@ -1,10 +1,5 @@
 var controllerOptions = { enableGestures: true };
 
-Leap.loop(controllerOptions, function(frame) {
-  var frameString = "frame:" + frame.id + 
-                    "gestures: " + frame.gestures.length +
-                    "\n" + frame.gestures;
-  $("body").text(frameString);
 var controller = Leap.loop(controllerOptions, function(frame) {
   //handle data. maybe define new gestures.
 });
