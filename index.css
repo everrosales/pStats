@@ -46,6 +46,10 @@ body {
   right: 20px;
   top: 20px;
 
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
   box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 
@@ -68,6 +72,8 @@ body {
   text-align: center;
   padding: 16px 16px 16px 16px;
   color: rgb(130, 130, 130);
+
+  background-color: white;
 
   border-style: solid;
   border-width: 2px 2px 2px 0px;
