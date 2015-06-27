@@ -1,5 +1,4 @@
 function openInfoPanel() {
-<<<<<<< HEAD
   $('#info').css('right', '454');
   $('#info_inner').css('right', '0');
 
