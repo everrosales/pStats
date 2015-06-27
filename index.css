@@ -12,25 +12,29 @@ body {
   width:0px;
   height:100%;
   position:fixed;
-  right:-35;
+  right:0;
   top:0;
   -webkit-transition-duration:0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  background:#6DAD53;
+  border: rgb(238, 238, 238) solid 2px;
 }
 
 #info_inner {
   position: fixed;
   right: -600px;
-  width:20%;
+  width:456px;
   height:100%;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  background:#6DAD53;
+  padding-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+
 }
 
 #content {
