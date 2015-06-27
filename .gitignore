@@ -1,4 +1,5 @@
 *.pyc
+politistats/*.pyc
 .*swp
 
 local_settings.py
