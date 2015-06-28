@@ -116,7 +116,7 @@ canvas {
   height:300px;
 }
 #graph-info{
-  display:none;
+  /*display:none;*/
 }
 #contPie, #contPie2, #contPie3, #expPie, #expPie2, #expPie3{
   height:250px;

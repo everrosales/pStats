@@ -272,8 +272,8 @@ Drawing.PoliticalGraph = function(options) {
      that.layout_options.layout = that.layout_options.layout || that.layout;
      graph.layout = new Layout.ForceDirected(graph, that.layout_options);
      graph.layout.init();
-     info_text.nodes = "Nodes " + graph.nodes.length;
-     info_text.edges = "Edges " + graph.edges.length;
+    //  info_text.nodes = "Nodes " + graph.nodes.length;
+    //  info_text.edges = "Edges " + graph.edges.length;
 
      animate();
    }
