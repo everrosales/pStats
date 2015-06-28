@@ -29,7 +29,7 @@ function openInfoPanel(cid) {
   // make icon on search bar be "clear"
   $('#search-exit-logo-icon').text('clear');
 
-  // TODO(amanda): move info panel to first slide.
+  $.fn.fullpage.moveTo(1);
 
   // TODO(rapha): display a loading gif on the whole panel.
 
@@ -163,7 +163,7 @@ $(document).ready(function(){
     var query = $('#search_box').val();
     searchCanditateExactName(query);
   }
-  
+
   $('#search_form').submit(searchEvent);
   $('#search-exit-logo').click(handleSearchExitEvent);
 
