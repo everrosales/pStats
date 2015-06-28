@@ -15,6 +15,68 @@ function _getParty(party_identifier) {
   }
 }
 
+var states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District Of Columbia",
+    "FM": "Federated States Of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+}
+
 function getWikipediaIntro(cname, cb) {
   $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exchars=500&exintro=&explaintext=&callback=?",
     { titles: cname }, cb);
@@ -46,14 +108,30 @@ function openInfoPanel(cid) {
 
     if (fields.DistIDCurr && fields.DistIDCurr.trim() != "") {
       $('#current_office').show();
-      $('#current_office_label').text(fields.DistIDCurr);
+      var result;
+      if (fields.DistIDCurr === 'PRES') {
+        result = "President of the Unites States"
+      } else if (fields.DistIDCurr.slice(2, 4) == 'S1' || fields.DistIDCurr.slice(2, 4) == 'S2') {
+        result = states[fields.DistIDCurr.slice(0, 2)] + " Senator";
+      } else {
+        result = states[fields.DistIDCurr.slice(0, 2)] + " " + fields.DistIDCurr.slice(2, 4) + "th District";
+      }
+      $('#current_office_label').text(result);
     } else {
       $('#current_office').hide();
     }
 
     if (fields.CurrCand == 'Y') {
       $('#running_for').show();
-      $('#running_for_label').text(fields.DistIDRunFor);
+      var result;
+      if (fields.DistIDRunFor === 'PRES') {
+        result = "President of the Unites States"
+      } else if (fields.DistIDRunFor.slice(2, 4) == 'S1' || fields.DistIDRunFor.slice(2, 4) == 'S2') {
+        result = states[fields.DistIDRunFor.slice(0, 2)] + " Senator";
+      } else {
+        result = states[fields.DistIDRunFor.slice(0, 2)] + " " + fields.DistIDRunFor.slice(2, 4) + "th District";
+      }
+      $('#running_for_label').text(result);
     } else {
       $('#running_for').hide();
     }
@@ -218,7 +296,6 @@ $(document).ready(function(){
 
   // add arrow click event listeners
   $('.scrollDownArrow').click(function(){
-    console.log("downarrow");
     $.fn.fullpage.moveSectionDown();
 
   })
