@@ -2,10 +2,20 @@
 {% load static from staticfiles %}
 
 {% block content %}
+<script type="text/javascript" src="{% static 'js/webgl-frameworks/three.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webgl-frameworks/Three.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/Graph.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/Stats.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/TrackballControls.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/Label.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/ObjectSelection.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layouts/force-directed-layout.js'%}"></script>
+<script type="text/javascript" src="{% static 'main/graph_crafter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <div id='content'>
   <div id=searchBlur>
 
-    <div id='graph'></div>
+    <div id='graph' onload="createDrawing()"></div>
 
     <div id='info'>
       <div id="info_inner">
