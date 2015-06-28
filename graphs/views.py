@@ -99,7 +99,7 @@ def candidate_expenditures(request, cid):
 		}
 		response_list.append(record)
 
-	response_dict["records"] = response_list
+	response_dict["records"] = response_list[:5]
 
 	return JsonResponse(response_dict)
 
