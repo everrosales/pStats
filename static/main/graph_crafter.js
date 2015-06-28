@@ -20,6 +20,15 @@ Drawing.PoliticalGraph = function(options) {
 
   var geometries = [];
 
+  var partyColorMap = {
+      "D": "#2196F3",
+      "R": "#F44336",
+      "I": "#009688",
+      "L": "#00BCD4",
+      "3": "#3F51B5",
+      "U": "#FF5722",
+  };
+
   var that=this;
 
   init();
@@ -96,6 +105,48 @@ Drawing.PoliticalGraph = function(options) {
     }
   }
 
+  /**
+   * Creates a random set of nodes and edges to be rendered for the data
+   *   visualization.
+   */
+   function createDataGraph() {
+     var root_node = new Node(0, {depth: 0});
+     var nodes = [];
+
+     root_node.data.title = "This is node " + root_node.id;
+     nodes.push(root_node);
+     graph.addNode(root_node);
+
+     var steps = 1;
+     while(nodes.length != 0 && steps < 20) {
+       var node = nodes.shift();
+       var numEdges = randomFromTo(1, 10);
+       for (var i = 1; i <= numEdges; i++) {
+         var target_depth = node.data.depth + 1;
+         var target_node = new Node(i*steps, {depth: target_depth});
+         if (graph.addNode(target_node)) {
+           target_node.data.title = "This is node " + target_node.id;
+           node.addChild(target_node, randomFromTo(1,100));
+           if (!target_node.data.depth || target_node.data.depth < 5) nodes.push(target_node);
+         }
+       }
+       steps++;
+     }
+     return root_node;
+   }
+
+   function renderChildren(parent_node) {
+     for (var i = 0; i < parent_node.children.length; i++) {
+       var target_node = parent_node.children[i].node;
+       drawNode(target_node);
+       if(graph.addEdge(parent_node, target_node)) {
+         drawEdge({source:parent_node, target:target_node, color:"red"});
+       }
+     }
+     for (var i = 0; i < parent_node.children.length; i++) {
+       renderChildren(parent_node.children[i].node);
+     }
+   }
 
   /**
    *  Creates a graph with random nodes and edges.
@@ -103,34 +154,9 @@ Drawing.PoliticalGraph = function(options) {
    *  numNodes and numEdges.
    */
   function createGraph() {
-
-    var node = new Node(0);
-    node.data.title = "This is node " + node.id;
-    graph.addNode(node);
-    drawNode(node);
-
-    var nodes = [];
-    nodes.push(node);
-
-    var steps = 1;
-    while(nodes.length != 0 && steps < that.nodes_count) {
-      var node = nodes.shift();
-
-      var numEdges = randomFromTo(1, that.edges_count);
-      for(var i=1; i <= numEdges; i++) {
-        var target_node = new Node(i*steps);
-        if(graph.addNode(target_node)) {
-          target_node.data.title = "This is node " + target_node.id;
-
-          drawNode(target_node);
-          nodes.push(target_node);
-          if(graph.addEdge(node, target_node)) {
-            drawEdge(node, target_node);
-          }
-        }
-      }
-      steps++;
-    }
+    var root_node = createDataGraph();
+    drawNode(root_node);
+    renderChildren(root_node);
 
     that.layout_options.width = that.layout_options.width || 2000;
     that.layout_options.height = that.layout_options.height || 2000;
@@ -146,7 +172,12 @@ Drawing.PoliticalGraph = function(options) {
    *  Create a node object and add it to the scene.
    */
   function drawNode(node) {
-    var node_color = defaultPartyColorMap[node.data.node_party];
+    var node_color;
+    if (node && node.data && node.data.node_party) {
+      node_color = partyColorMap[node.data.node_party] || "#607DB8";
+    } else {
+      node_color =  "#607DB8";
+    }
     var draw_object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
 
     if(that.show_labels) {
@@ -171,18 +202,20 @@ Drawing.PoliticalGraph = function(options) {
     node.data.draw_object = draw_object;
     node.position = draw_object.position;
     scene.add( node.data.draw_object );
+    return node;
   }
 
 
   /**
    *  Create an edge object (line) and add it to the scene.
    */
-  function drawEdge(source, target) {
-      material = new THREE.LineBasicMaterial({ color: 0xff0000, opacity: 1, linewidth: 0.5 });
+  function drawEdge(edge) {
+
+      material = new THREE.LineBasicMaterial({ color: edge.color, opacity: 1, linewidth: 0.5 });
 
       var tmp_geo = new THREE.Geometry();
-      tmp_geo.vertices.push(source.data.draw_object.position);
-      tmp_geo.vertices.push(target.data.draw_object.position);
+      tmp_geo.vertices.push(edge.source.data.draw_object.position);
+      tmp_geo.vertices.push(edge.target.data.draw_object.position);
 
       line = new THREE.Line( tmp_geo, material, THREE.LinePieces );
       line.scale.x = line.scale.y = line.scale.z = 1;
@@ -288,28 +321,4 @@ Drawing.PoliticalGraph = function(options) {
   this.stop_calculating = function() {
     graph.layout.stop_calculating();
   }
-
-
-  var partyColorMap = {
-      "D": "#2196F3",
-      "R": "#F44336",
-      "I": "#009688",
-      "L": "#00BCD4",
-      "3": "#3F51B5",
-      "U": "#FF5722"
-  };
-
-  // Default dictionary
-  function defaultDict(map, default) {
-    return function(key) {
-      if (key in map) return map[key];
-      // if (typeof default == "function()") return default(key);
-      return default;
-    }
-  }
-
-  function defaultPartyColorMap() {
-    return defaultDict(partyDict, "#607DB8");
-  }
-
 }
