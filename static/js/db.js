@@ -15,5 +15,9 @@ var db = {
 
   getCandidateId: function(cname, cb) {
       $.ajax(SERVER + '/data/candidate/getid/' + cname).done(cb);
-    }
+    },
+
+  getAllCandidates: function(cb) {
+    $.ajax(SERVER + '/data/candidate/all').done(cb);
+  }
 }
