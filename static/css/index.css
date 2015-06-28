@@ -45,7 +45,7 @@ canvas {
 #info{
   height:100%;
 
-  position:fixed;
+  position:fixed !important;
   right:0;
   top:0;
 
@@ -74,7 +74,7 @@ canvas {
 }
 
 #info_inner {
-  position: fixed;
+  position: fixed !important;
   right: -600px;
 
   width:455px;
@@ -162,6 +162,8 @@ canvas {
   border-width: 2px 2px 2px 0px;
   border-color: rgb(238, 238, 238);
 
+  cursor: pointer;
+  cursor: hand;
 }
 
 #running_for_desc {
@@ -170,4 +172,18 @@ canvas {
 
 .info_label {
   display: inline;
+}
+
+#wiki_info_link {
+  width: 100%;
+  text-align: right;
+}
+
+#headshot {
+  width: 100%;
+  text-align: center;
+}
+
+#headshot_img {
+  width: 50%;
 }

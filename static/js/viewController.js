@@ -15,14 +15,14 @@ function _getParty(party_identifier) {
   }
 }
 
-function getWikipediaInformation(cname, cb) {
-  $.getJSON("http://en.wikipedia.org/w/api.php?action=parse&format=json&callback=?",
-    { page: cname, prop: "text" }, cb);
+function getWikipediaIntro(cname, cb) {
+  $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exchars=500&exintro=&explaintext=&callback=?",
+    { titles: cname }, cb);
 }
 
 function getWikipediaImages(cname, cb) {
-  $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&callback=?",
-    { titles: cname, prop: "images"}, cb);
+  $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&pithumbsize=300&callback=?",
+    { titles: cname, prop: "pageimages"}, cb);
 }
 
 function openInfoPanel(cid) {
@@ -54,15 +54,23 @@ function openInfoPanel(cid) {
       $('#running_for').hide();
     }
 
-    // get wiki info for this candidate.
-    getWikipediaInformation(cname, function(data) {
-      console.log("hey");
-      console.log(data);
+    // get wiki intro info for this candidate.
+    getWikipediaIntro(cname, function(data) {
+      var pageid = Object.keys(data.query.pages)[0];
+      var intro = data.query.pages[pageid].extract;
+      $('#wiki_info_label').text(intro)
+      $('#wiki_info_link_href').attr('href', "http://wikipedia.org/wiki/" + cname);
     });
 
     getWikipediaImages(cname, function(data) {
-      console.log("hey2");
-      console.log(data);
+      var pageid = Object.keys(data.query.pages)[0];
+      var page = data.query.pages[pageid]
+      if (page.thumbnail != undefined) {
+        $('#headshot').show();
+        $('#headshot_img').attr('src', page.thumbnail.source);
+      } else {
+        $('#headshot').hide();
+      }
     });
 
     // TODO(rapha): remove loading gif.
@@ -127,12 +135,20 @@ $(document).ready(function(){
   // TODO(rapha): suggest cadidate names as user types it.
 
   // make search bar work.
-  $('#search_form').submit(function (event) {
+  function searchEvent(event) {
     event.preventDefault();
+    removeSearchBarFromFocus();
     var query = $('#search_box').val();
     searchCanditateExactName(query);
-  });
+  }
+  $('#search_form').submit(searchEvent);
+  $('#search-exit-logo').on('click', searchEvent);
 
+  // brings search bar to focus.
+  $('#search_box').focus(bringSearchBarToFocus);
+  $('#search_box').blur(removeSearchBarFromFocus);
+
+  // initializes scrolling object
   $('#info_inner').fullpage();
 
   // add arrow hover event listeners
@@ -151,4 +167,8 @@ $(document).ready(function(){
   $('.scrollUpArrow').click(function(){
     $.fn.fullpage.moveSectionUp();
   })
+
+  String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+  };
 });
