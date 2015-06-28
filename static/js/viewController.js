@@ -18,7 +18,7 @@ function closeInfoPanel() {
 
 function bringSearchBarToFocus() {
   closeInfoPanel();
-  // blur
+  // blur everything else.
   $('#searchBlur').css('filter', 'blur(7px)');
   $('#searchBlur').css('-webkit-filter', 'blur(7px)');
 
@@ -27,6 +27,16 @@ function bringSearchBarToFocus() {
   var topThird = $(window).height()/3;
   $('#search').css('right', halfWindow);
   $('#search').css('top', topThird);
+}
+
+function removeSearchBarFromFocus() {
+  // unblur everything else.
+  $('#searchBlur').css('filter', '');
+  $('#searchBlur').css('-webkit-filter', '');
+
+  // move search bar to its place.
+  $('#search').css('right', '20px');
+  $('#search').css('top', '20px');
 }
 
 $(document).ready(function(){
