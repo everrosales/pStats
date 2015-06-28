@@ -98,6 +98,7 @@ function Node(node_id, meta_data) {
   this.data = meta_data || {};
   this.children = [];
   this.parents = [];
+  this.data.subtree_weight = 0;
 }
 
 Node.prototype.addConnectedTo = function(node) {
@@ -120,6 +121,7 @@ Node.prototype.connectedTo = function(node) {
 
 Node.prototype.addChild = function(node, weight) {
   this.children.push(new ChildNode(node, weight));
+  this.data.subtree_weight = this.data.subtree_weight + Math.abs(weight);
   node.addParent(this);
 }
 

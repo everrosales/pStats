@@ -110,6 +110,7 @@ Drawing.PoliticalGraph = function(options) {
    *   visualization.
    */
    function createDataGraph() {
+     console.log(RGBtoHex(100, 100, 100));
      var root_node = new Node(0, {depth: 0});
      var nodes = [];
 
@@ -126,7 +127,7 @@ Drawing.PoliticalGraph = function(options) {
          var target_node = new Node(i*steps, {depth: target_depth});
          if (graph.addNode(target_node)) {
            target_node.data.title = "This is node " + target_node.id;
-           node.addChild(target_node, randomFromTo(1,100));
+           node.addChild(target_node, randomFromTo(-1000,1000));
            if (!target_node.data.depth || target_node.data.depth < 5) nodes.push(target_node);
          }
        }
@@ -140,7 +141,7 @@ Drawing.PoliticalGraph = function(options) {
        var target_node = parent_node.children[i].node;
        drawNode(target_node);
        if(graph.addEdge(parent_node, target_node)) {
-         drawEdge({source:parent_node, target:target_node, color:"red"});
+         drawEdge({source:parent_node, target:target_node, color:"red", weight:parent_node.children[i].weight});
        }
      }
      for (var i = 0; i < parent_node.children.length; i++) {
@@ -178,7 +179,10 @@ Drawing.PoliticalGraph = function(options) {
     } else {
       node_color =  "#607DB8";
     }
-    var draw_object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
+    var size = Math.min(Math.max(Math.abs(node.data.subtree_weight)/10, 25), 500);
+    // console.log(size);
+    var node_geometry = new THREE.SphereGeometry(size/2, 32, 32);
+    var draw_object = new THREE.Mesh( node_geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
 
     if(that.show_labels) {
       if(node.data.title != undefined) {
@@ -210,8 +214,9 @@ Drawing.PoliticalGraph = function(options) {
    *  Create an edge object (line) and add it to the scene.
    */
   function drawEdge(edge) {
-
-      material = new THREE.LineBasicMaterial({ color: edge.color, opacity: 1, linewidth: 0.5 });
+      // console.log( RGBtoHex(255, Math.min(255, 5 * edge.weight), 0));
+      var label_color = edge.weight < 0 ? "red" : "green";
+      material = new THREE.LineBasicMaterial({ color: label_color , opacity: 1, linewidth: 0.5 });
 
       var tmp_geo = new THREE.Geometry();
       tmp_geo.vertices.push(edge.source.data.draw_object.position);
@@ -321,4 +326,13 @@ Drawing.PoliticalGraph = function(options) {
   this.stop_calculating = function() {
     graph.layout.stop_calculating();
   }
+
+  function RGBtoHex(red, green, blue) {
+      var decColor = red + green * 256 + blue * 256 * 256;
+      var upperTwoHex = decColor % (256 * 256);
+      var lowerFourHex = decColor - (upperTwoHex * 256 * 256)
+
+      return upperTwoHex.toString(16) + lowerFourHex.toString(16);
+    }
+
 }
