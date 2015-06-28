@@ -121,7 +121,7 @@ Node.prototype.connectedTo = function(node) {
 
 Node.prototype.addChild = function(node, weight) {
   this.children.push(new ChildNode(node, weight));
-  this.data.subtree_weight = this.data.subtree_weight + weight;
+  this.data.subtree_weight = this.data.subtree_weight + Math.abs(weight);
   node.addParent(this);
 }
 
