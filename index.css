@@ -2,10 +2,21 @@ body {
   font-family: 'Roboto', sans-serif;
   width: 100%;
   height: 100%;
+
 }
 
 #graph{
   width: 100%;
+  height:100%;
+  background-image: url('http://geology.com/world/world-map.gif');
+  background-size:cover;
+}
+
+#searchBlur{
+
+  z-index:2;
+  width:100%;
+  height:100%;
 }
 
 #info{
@@ -59,6 +70,7 @@ body {
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
   box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+  background-color:white;
 }
 
 #search_box {
