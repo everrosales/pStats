@@ -33,6 +33,7 @@ var recipient_second_letter = {
   "O":"Open Seat",
   "N":"Non-incumbent",
   "P":"Party committee",
+  "I":"Incumbent"
 }
 
 var group_second_letter = {
@@ -344,6 +345,10 @@ $(document).ready(function(){
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
 
+  String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+  };
+
   $('.toContrib').click(function(){
     pacPie.destroy();
     pacPie2.destroy();
@@ -363,10 +368,10 @@ $(document).ready(function(){
         console.log(records);
         for(var i=0; i<records.length; i++){
           if (records[i].pac_id){ //this is a PAC
-            PACs.push({'label':records[i].pac_name, 'value':Math.abs(records[i].amount)});
+            PACs.push({'label':records[i].pac_name.capitalize(), 'value':Math.abs(records[i].amount)});
             PAC_sum += Math.abs(records[i].amount);
           }else if(records[i].individual_name){ //this is an individual
-            individs.push({'label':records[i].individual_name, 'value':Math.abs(records[i].amount)});
+            individs.push({'label':records[i].individual_name.capitalize(), 'value':Math.abs(records[i].amount)});
             individ_sum += Math.abs(records[i].amount);
 
           }
@@ -516,14 +521,14 @@ $(document).ready(function(){
       var records = data.records;
       var typeCount = {}; //type : number
       var descriptionCount = {}; //description : number
-      var rec_names = [];
+      var rec_names = {};
       if(data.records.length == 0){
         $('#expPie').text("No expenditures data available.")
       }else{
         for(var i=0; i<records.length; i++){
           var code = records[i].recipient_code;
           var type = "";
-          type += recipient_first_letter[code[0]];
+          type += recipient_first_letter[code[0]] + ", ";
           if(code[0] == "P" || code[0] == "O"){
             type += group_second_letter[code[1]];
           }else{
@@ -535,13 +540,17 @@ $(document).ready(function(){
             typeCount[type] += records[i].amount;
           }
 
-          if(!(records[i].description in descriptionCount)){
-            descriptionCount[records[i].description] = records[i].amount;
+          if(!(records[i].description.capitalize() in descriptionCount)){
+            descriptionCount[records[i].description.capitalize()] = records[i].amount;
           }else{
-            descriptionCount[records[i].description] += records[i].amount;
+            descriptionCount[records[i].description.capitalize()] += records[i].amount;
           }
-          if(records[i].recipient_name && records[i].amount){
-            rec_names.push({"label":records[i].recipient_name, "value":records[i].amount});
+          if(records[i].recipient_name && records[i].amount>0){
+            if(!((records[i].recipient_name).capitalize() in rec_names)){
+              rec_names[(records[i].recipient_name).capitalize()] = records[i].amount;
+            }else{
+              rec_names[(records[i].recipient_name).capitalize()] += records[i].amount;
+            }
           }
 
         }
@@ -558,6 +567,12 @@ $(document).ready(function(){
         var desc = descs[i];
         descGraph.push({"label":desc, "value":descriptionCount[desc]});
       }
+      var nameGraph = [];
+      var names = Object.keys(rec_names);
+      for(var i=0; i < names.length; i++){
+        var name = names[i];
+        nameGraph.push({"label":name, "value":rec_names[name]});
+      }
       var pacPie = new d3pie("expPie2", {
         header: {
           title: {
@@ -571,7 +586,7 @@ $(document).ready(function(){
           canvasWidth: 270
         },
         data: {
-          content: rec_names,
+          content: nameGraph,
           smallSegmentGrouping:{
             enabled:true,
             value:5
@@ -597,7 +612,7 @@ $(document).ready(function(){
         },
         "truncation": {
           "enabled":true,
-          "truncateLength":20
+          "truncateLength":15
         }
 
         }
@@ -642,6 +657,10 @@ $(document).ready(function(){
           },
         "value": {
           "color": "#adadad"
+          },
+          "truncation": {
+            "enabled":true,
+            "truncateLength":20
           }
 
         }
