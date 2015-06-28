@@ -1,3 +1,5 @@
+CAND_ID = "";
+
 function _getParty(party_identifier) {
   switch(party_identifier) {
     case 'L':
@@ -15,6 +17,68 @@ function _getParty(party_identifier) {
   }
 }
 
+var states = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District Of Columbia",
+    "FM": "Federated States Of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming"
+}
+
 function getWikipediaIntro(cname, cb) {
   $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exchars=500&exintro=&explaintext=&callback=?",
     { titles: cname }, cb);
@@ -26,6 +90,7 @@ function getWikipediaImages(cname, cb) {
 }
 
 function openInfoPanel(cid) {
+  CAND_ID=cid;
   // make icon on search bar be "clear"
   $('#search-exit-logo-icon').text('clear');
 
@@ -46,14 +111,30 @@ function openInfoPanel(cid) {
 
     if (fields.DistIDCurr && fields.DistIDCurr.trim() != "") {
       $('#current_office').show();
-      $('#current_office_label').text(fields.DistIDCurr);
+      var result;
+      if (fields.DistIDCurr === 'PRES') {
+        result = "President of the Unites States"
+      } else if (fields.DistIDCurr.slice(2, 4) == 'S1' || fields.DistIDCurr.slice(2, 4) == 'S2') {
+        result = states[fields.DistIDCurr.slice(0, 2)] + " Senator";
+      } else {
+        result = states[fields.DistIDCurr.slice(0, 2)] + " " + fields.DistIDCurr.slice(2, 4) + "th District";
+      }
+      $('#current_office_label').text(result);
     } else {
       $('#current_office').hide();
     }
 
     if (fields.CurrCand == 'Y') {
       $('#running_for').show();
-      $('#running_for_label').text(fields.DistIDRunFor);
+      var result;
+      if (fields.DistIDRunFor === 'PRES') {
+        result = "President of the Unites States"
+      } else if (fields.DistIDRunFor.slice(2, 4) == 'S1' || fields.DistIDRunFor.slice(2, 4) == 'S2') {
+        result = states[fields.DistIDRunFor.slice(0, 2)] + " Senator";
+      } else {
+        result = states[fields.DistIDRunFor.slice(0, 2)] + " " + fields.DistIDRunFor.slice(2, 4) + "th District";
+      }
+      $('#running_for_label').text(result);
     } else {
       $('#running_for').hide();
     }
@@ -141,6 +222,7 @@ $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
 
+
   // initializes scrolling object
   $('#info_inner').fullpage();
 
@@ -181,6 +263,7 @@ $(document).ready(function(){
         searchCandidateById(data.id);
       }, function (errordata) {
         // id not on server. notify user.
+        $('#search_box').focus();
         $('#search_box').val('Oops! Candidate Not Found.');
       });
     } else {
@@ -217,7 +300,6 @@ $(document).ready(function(){
 
   // add arrow click event listeners
   $('.scrollDownArrow').click(function(){
-    console.log("downarrow");
     $.fn.fullpage.moveSectionDown();
 
   })
@@ -229,4 +311,92 @@ $(document).ready(function(){
   String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
+
+  $('.toContrib').click(function(){
+    if(!($('#contPie').text())){
+      console.log(cname);
+      console.log(CAND_ID);
+      db.getCandidateContributions(CAND_ID, function(data) {
+        console.log(data)
+        if(data.records.length == 0){
+          $('#contPie').text("No contributions data available.")
+        }
+
+      })
+    }
+
+  })
+
+  $('.toExpend').click(function(){
+    if(!($('#expPie').text())){
+      
+    }
+  })
+/*var pacPie = new d3pie("pacPie", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});
+var pacPie2 = new d3pie("pacPie2", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});
+var pacPie3 = new d3pie("pacPie3", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});*/
+
 });

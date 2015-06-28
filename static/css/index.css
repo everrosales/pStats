@@ -58,17 +58,13 @@ canvas {
   transition-duration: 0.3s;
 }
 
-.downArrowContainer{
-  position:absolute;
-  bottom:50px;
-  width:90%;
-}
 .innerSection{
   vertical-align:middle;
   width:100%;
   height:100%;
   display:block;
 }
+
 .section{
   width:100%;
   height:100%;
@@ -76,6 +72,13 @@ canvas {
   table-layout:fixed;
   position:relative;
 }
+
+.downArrowContainer{
+  position: absolute;
+  bottom: 20px;
+  width:90%;
+}
+
 .upArrowContainer{
   vertical-align:top;
   width:100%;
@@ -91,13 +94,45 @@ canvas {
   vertical-align:middle;
   text-align:left;
   cursor:pointer;
-}
-.arrowContainer{
 
+  height: 30px;
+}
+
+.upArrowContainer {
+  line-height: 200% !important;
+}
+
+.pieContainer{
+  height:300px;
+}
+#graph-info{
+  display:none;
+}
+svg{
+  margin-left:15%;
+  overflow:visible !important;
+}
+.p0_lineGroups{
+  margin:0px !important;
+  padding: 0px !important;
+}
+
+.downArrowContainer {
+  line-height: 30% !important;
+}
+
+.arrowContainer{
   text-align:center;
-  margin-top:20px;
   padding:10px;
 }
+
+#pacPie, #pacPie2, #pacPie3{
+  text-align:left;
+  height:100%;
+  width:100%;
+}
+
+
 
 #info_inner {
   position: fixed !important;
@@ -123,6 +158,7 @@ canvas {
   font-size: 22px;
   font-weight: 200;
 }
+
 .fp-tableCell{
   display:block !important;
   height:100% !important;
@@ -192,7 +228,7 @@ canvas {
   cursor: hand;
 }
 
-#running_for_desc {
+#running_for_desc, #current_office_desc {
   font-style: italic;
 }
 
