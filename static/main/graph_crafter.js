@@ -152,9 +152,11 @@ Drawing.PoliticalGraph = function(options) {
     if (candidate_id[0] == "N") {
       // info_url = "http://politistats.herokuapp.com/data/candidate/info/" + candidate_id;
       neighbor_url= "http://politistats.herokuapp.com/data/candidate/contributions/" + candidate_id + "/10";
+      // neighbor_url_to= "http://politistats.herokuapp.com/data/committee/expenditures/" + candidate_id + "/10";
     } else {
       // info_url = "http://politistats.herokuapp.com/data/committee/info" + candidate_id;
       neighbor_url= "http://politistats.herokuapp.com/data/committee/contributions/" + candidate_id + "/10";
+      // neighbor_url_to= "http://politistats.herokuapp.com/data/committee/expenditures/" + candidate_id + "/10";
     }
      pendingRequests++;
      $.ajax({url: neighbor_url, success: function(result) {
@@ -174,6 +176,28 @@ Drawing.PoliticalGraph = function(options) {
      addPointsToGraph(root_node, neighbors, root_node);
     //  drawNode(root_node);
     //  renderChildren(root_node);
+   }
+
+   function addNegativePointsToGraph(parent_node, neighbors, root_node) {
+     target_neighbor_nodes = [];
+     for (var i = 0; i < neighbors.length; i++) {
+       var target_depth = parent_node.data.depth + 1;
+
+       var target_node = new Node(neighbors[i].pac_id || neighbors[i].candidate_id, { db_id: neighbors[i].pac_id || neighbors[i].candidate_id,
+         node_party: neighbors[i].pac_party || neighbors[i].candidate_party, name: neighbors[i].pac_name || neighbors[i].candidate_name,
+         weight: neighbors[i].amount, depth: target_depth});
+       if (graph.addNode(target_node)) {
+         target_node.data.title = target_node.data.name;
+         parent_node.addChild(target_node, - target_node.data.weight);
+         target_neighbor_nodes.push(target_node);
+       }
+     }
+    //  renderChildren(parent_node);
+    //  for (var i = 0; i < target_neighbor_nodes.length; i++) {
+    //    var target_node = target_neighbor_nodes[i];
+    //    if (target_node.data.depth < 2) queryAndAddNegativePoints(target_node, target_node.data.db_id || target_node.data.db_id, root_node);
+    //  }
+     //  renderGraph(root_node)
    }
 
    function addPointsToGraph(parent_node, neighbors, root_node) {
@@ -205,11 +229,13 @@ Drawing.PoliticalGraph = function(options) {
        return;
      }
      if (candidate_id[0] == "N") {
-       info_url = "http://politistats.herokuapp.com/data/candidate/info/" + candidate_id;
+      //  info_url = "http://politistats.herokuapp.com/data/candidate/info/" + candidate_id;
        neighbor_url= "http://politistats.herokuapp.com/data/candidate/contributions/" + candidate_id + "/10";
+       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/15"
      } else {
-       info_url = "http://politistats.herokuapp.com/data/committee/info" + candidate_id;
+      //  info_url = "http://politistats.herokuapp.com/data/committee/info" + candidate_id;
        neighbor_url= "http://politistats.herokuapp.com/data/committee/contributions/" + candidate_id + "/10";
+       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/15"
      }
      pendingRequests++;
 
@@ -225,6 +251,22 @@ Drawing.PoliticalGraph = function(options) {
      }, error: function(event) {
        alert("well...funny story");
      }})
+
+     pendingRequests++;
+
+     $.ajax({url: neighbor_url_out, success: function(result) {
+      //  neighbors_gathered = true;
+       neighbors = result.records;
+       addNegativePointsToGraph(parent_node, neighbors, root_node);
+       pendingRequests--;
+
+       if (pendingRequests == 0)
+        renderGraph(root_node);
+
+     }, error: function(event) {
+       alert("well...funny story");
+     }})
+
    }
 
   /**
@@ -262,10 +304,7 @@ Drawing.PoliticalGraph = function(options) {
    function renderGraph(root_node) {
      drawNode(root_node);
      renderChildren(root_node);
-    //  graph.layout = new Layout.ForceDirected(graph, that.layout_options);
-    //  graph.layout.init();
-    //  info_text.nodes = "Nodes " + graph.nodes.length;
-    //  info_text.edges = "Edges " + graph.edges.length;
+
      that.layout_options.width = that.layout_options.width || 2000;
      that.layout_options.height = that.layout_options.height || 2000;
      that.layout_options.iterations = that.layout_options.iterations || 100000;

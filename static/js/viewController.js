@@ -178,7 +178,7 @@ function openInfoPanel(cid) {
         }
         if (number[0] == '0') {
           number = number[1];
-        } 
+        }
         result = states[fields.DistIDCurr.slice(0, 2)] + " " + number + suffix + " District";
       }
       $('#current_office_label').text(result);
@@ -211,7 +211,7 @@ function openInfoPanel(cid) {
         }
         if (number[0] == '0') {
           number = number[1];
-        } 
+        }
         result = states[fields.DistIDRunFor.slice(0, 2)] + " " + number + suffix + " District";
       }
       $('#running_for_label').text(result);
@@ -222,7 +222,7 @@ function openInfoPanel(cid) {
     // get wiki intro info for this candidate.
     getWikipediaIntro(cname, function(data) {
       var pageid = Object.keys(data.query.pages)[0];
-      var intro.trim() = data.query.pages[pageid].extract;
+      var intro = data.query.pages[pageid].extract.trim();
       if (intro !== "") {
         $('#wiki_info').show();
         $('#wiki_info_label').text(intro);
@@ -313,6 +313,7 @@ searchInFocus = false;
 
 $(document).ready(function(){
   $('#loadingDiv').hide();
+
   $.extend({
       getUrlVars : function() {
           var vars = [], hash;
