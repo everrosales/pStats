@@ -17,6 +17,32 @@ function _getParty(party_identifier) {
   }
 }
 
+var recipient_first_letter = {
+  "D": "Democrat",
+  "R": "Republican",
+  "3": "Independent/Libertarian/3rd party",
+  "U": "Unknown",
+  "P": "PAC",
+  "O": "Outside spending group"
+}
+
+var recipient_second_letter = {
+  "W":"Winner",
+  "L":"Loser",
+  "C":"Challenger",
+  "O":"Open Seat",
+  "N":"Non-incumbent",
+  "P":"Party committee",
+}
+
+var group_second_letter = {
+  "B":"Business",
+  "L":"Labor",
+  "I":"Ideological",
+  "O":"Other",
+  "U":"Unknown"
+}
+
 var states = {
     "AL": "Alabama",
     "AK": "Alaska",
@@ -356,15 +382,17 @@ $(document).ready(function(){
     db.getCandidateContributions(CAND_ID, function(data) {
       var records = data.records;
       if(data.records.length == 0){
-        $('#contPie').text("No contributions data available.")
+        console.log("no cont data");
+        $('#contPie').text("No contributions data available.");
       }else{
+        console.log(records);
         for(var i=0; i<records.length; i++){
           if (records[i].pac_id){ //this is a PAC
-            PACs.push({'label':records[i].pac_name, 'value':records[i].amount});
-            PAC_sum += records[i].amount;
+            PACs.push({'label':records[i].pac_name, 'value':Math.abs(records[i].amount)});
+            PAC_sum += Math.abs(records[i].amount);
           }else if(records[i].individual_name){ //this is an individual
-            individs.push({'label':records[i].individual_name, 'value':records[i].amount});
-            individ_sum += records[i].amount;
+            individs.push({'label':records[i].individual_name, 'value':Math.abs(records[i].amount)});
+            individ_sum += Math.abs(records[i].amount);
 
           }
         }
@@ -502,9 +530,6 @@ $(document).ready(function(){
   })
 
   $('.toExpend').click(function(){
-    if(!($('#expPie').text())){
-
-    }
     expPie.destroy();
     expPie2.destroy();
     expPie3.destroy();
@@ -514,25 +539,54 @@ $(document).ready(function(){
     var individs = [];
     db.getCandidateExpenditures(CAND_ID, function(data) {
       var records = data.records;
+      var typeCount = {}; //type : number
+      var descriptionCount = {}; //description : number
+      var rec_names = [];
       if(data.records.length == 0){
         $('#expPie').text("No expenditures data available.")
       }else{
         for(var i=0; i<records.length; i++){
-          if (records[i].pac_id){ //this is a PAC
-            PACs.push({'label':records[i].pac_name, 'value':records[i].amount});
-            PAC_sum += records[i].amount;
-          }else if(records[i].individual_name){ //this is an individual
-            individs.push({'label':records[i].individual_name, 'value':records[i].amount});
-            individ_sum += records[i].amount;
-
+          var code = records[i].recipient_code;
+          var type = "";
+          type += recipient_first_letter[code[0]];
+          if(code[0] == "P" || code[0] == "O"){
+            type += group_second_letter[code[1]];
+          }else{
+            type += recipient_second_letter[code[1]];
           }
+          if(!(type in typeCount)){
+            typeCount[type] = records[i].amount;
+          }else{
+            typeCount[type] += records[i].amount;
+          }
+
+          if(!(records[i].description in descriptionCount)){
+            descriptionCount[records[i].description] = records[i].amount;
+          }else{
+            descriptionCount[records[i].description] += records[i].amount;
+          }
+          if(records[i].recipient_name && records[i].amount){
+            rec_names.push({"label":records[i].recipient_name, "value":records[i].amount});
+          }
+
         }
 
-      ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
+      var typeGraph = [];
+      var types = Object.keys(typeCount);
+      for(var i=0; i < types.length; i++){
+        var lab = types[i];
+        typeGraph.push({"label":lab, "value":typeCount[lab]});
+      }
+      var descGraph = [];
+      var descs = Object.keys(descriptionCount);
+      for(var i=0; i < descs.length; i++){
+        var desc = descs[i];
+        descGraph.push({"label":desc, "value":descriptionCount[desc]});
+      }
       var pacPie = new d3pie("expPie2", {
         header: {
           title: {
-            text: "PAC Expenditures",
+            text: "Expenditures by Name",
             fontSize: 10,
           },
           location: "pie-center"
@@ -542,7 +596,7 @@ $(document).ready(function(){
           canvasWidth: 270
         },
         data: {
-          content: PACs,
+          content: rec_names,
           smallSegmentGrouping:{
             enabled:true,
             value:5
@@ -576,7 +630,7 @@ $(document).ready(function(){
       var expPie2 = new d3pie("expPie3", {
         header: {
           title: {
-            text: "Individual Expenditures",
+            text: "Expenditures by Type",
             fontSize: 10
           },
           location: "pie-center"
@@ -590,7 +644,7 @@ $(document).ready(function(){
           canvasWidth: 270
         },
         data: {
-          content: individs,
+          content: descGraph,
           smallSegmentGrouping:{
             enabled:true,
             value:5
@@ -620,7 +674,7 @@ $(document).ready(function(){
       var expPie3 = new d3pie("expPie", {
         header: {
           title: {
-            text: "Individual vs PAC Expenditures",
+            text: "Expenditures by Political Affiliation",
             fontSize: 10
           },
           location: "pie-center"
@@ -630,7 +684,7 @@ $(document).ready(function(){
           canvasWidth: 270
         },
         data: {
-          content: ind_vs_PAC
+          content: typeGraph
         },
         tooltips: {
           enabled:true,

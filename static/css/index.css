@@ -111,6 +111,13 @@ canvas {
 #contPie, #contPie2, #contPie3, #expPie, #expPie2, #expPie3{
   height:250px;
 }
+
+#contPieLabel {
+  height: 50%;
+  text-align: center;
+  padding-top: 50%;
+}
+
 svg{
   margin-left:15%;
   overflow:visible !important;
