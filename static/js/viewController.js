@@ -181,6 +181,7 @@ $(document).ready(function(){
         searchCandidateById(data.id);
       }, function (errordata) {
         // id not on server. notify user.
+        $('#search_box').focus();
         $('#search_box').val('Oops! Candidate Not Found.');
       });
     } else {
