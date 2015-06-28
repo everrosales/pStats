@@ -341,7 +341,7 @@ Drawing.PoliticalGraph = function(options) {
         label_object.translateZ(-100);
         label_object.material.color.setHex(0x000000);
       } else {
-        label_object = new THREE.Label(node.id, {color: 0xffffff});
+        label_object = new THREE.Label("", {color: 0xffffff});
         label_object.translateZ(-100);
         label_object.material.color.set(new THREE.Color(0xffffff));
       }
@@ -390,6 +390,7 @@ Drawing.PoliticalGraph = function(options) {
 
 
   function animate() {
+    $('#loadingDiv').hide();
     requestAnimationFrame( animate );
     controls.update();
     render();
