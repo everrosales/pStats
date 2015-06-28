@@ -41,7 +41,6 @@ function removeSearchBarFromFocus() {
 
 $(document).ready(function(){
   $('body').css('height', $(document).height() + 'px');
-  openInfoPanel();
   $('#info_inner').fullpage();
 
   $('.arrow').hover(function(){
