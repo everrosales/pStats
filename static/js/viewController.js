@@ -325,8 +325,9 @@ $(document).ready(function(){
     db.getCandidateContributions(CAND_ID, function(data) {
       var records = data.records;
       if(data.records.length == 0){
-        $('#contPie').text("No contributions data available.")
-      }else{
+        $('#contPieLabel').show();
+      } else {
+        $('#contPieLabel').hide();
         for(var i=0; i<records.length; i++){
           if (records[i].pac_id){ //this is a PAC
             PACs.push({'label':records[i].pac_name, 'value':records[i].amount});
