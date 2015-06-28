@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 
 {% block content %}
+<script type="text/javascript" src="{% static 'js/jquery.fullPage.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webgl-frameworks/three.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webgl-frameworks/Three.js'%}"></script>
 <script type="text/javascript" src="{% static 'js/Graph.js' %}"></script>
@@ -12,14 +13,27 @@
 <script type="text/javascript" src="{% static 'js/layouts/force-directed-layout.js'%}"></script>
 <script type="text/javascript" src="{% static 'main/graph_crafter.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/jquery.fullPage.js' %}"></script>
 <div id='content'>
+  <div id="container">
+  </div>
   <div id=searchBlur>
 
     <div id='info'>
       <div id="info_inner">
 
         <div class="section">
+            <div id='current_office'>
+              <h3 id='current_office_label' class='info_label'>Governor of Illinois</h3>
+            </div><br/>
+
+            <div id='running_for'>
+              <span id='running_for_desc'>Running for...</span><br/>
+              <h3 id='running_for_label' class='info_label'>President Of The United States</h3>
+            </div>
+            <div class="arrowContainer downArrowContainer">
+              <small class="arrowLabel">Contributions</small><br/>
+              <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
+            </div>
           <div id='headshot'>
             <img id='headshot_img' href=''/>
             <br/><br/>
@@ -46,36 +60,32 @@
             <h5 id='wiki_info_label'></h5>
             <div id='wiki_info_link'>
               <a id='wiki_info_link_href' href=''>
-                <small>Wikipedia<small>
+                <small>Wikipedia</small>
               </a>
             </div>
           </div>
-          <div class="arrowContainer downArrowContainer">
-            <span class="arrowLabel"><small>Contributions</small></span><br/>
-            <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
-          </div>
         </div>
 
         <div class="section">
-          <div class="arrowContainer upArrowContainer">
-            <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
-            <span class="arrowLabel"><small>Overview</small></span>
-          </div>
-          <p>hey what's up</p>
-          <p> I'm section 2!</p>
-          <div class="arrowContainer downArrowContainer">
-            <span class="arrowLabel"><small>Expenditures</small></span><br/>
-            <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
-          </div>
+            <div class="arrowContainer upArrowContainer">
+              <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
+              <small class="arrowLabel">Overview</small>
+            </div>
+            <p>hey what's up</p>
+            <p> I'm section 2!</p>
+            <div class="arrowContainer downArrowContainer">
+              <small class="arrowLabel">Expenditures</small><br/>
+              <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
+            </div>
         </div>
 
         <div class="section">
-          <div class="arrowContainer upArrowContainer">
-            <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
-            <span class="arrowLabel"><small>Contributions</small></span>
-          </div>
-          <p>cool beans,</p>
-          <p>you've reached section 3</p>
+            <div class="arrowContainer upArrowContainer">
+              <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
+              <small class="arrowLabel">Contributions</small>
+            </div>
+            <p>cool beans,</p>
+            <p>you've reached section 3</p>
         </div>
 
       </div>

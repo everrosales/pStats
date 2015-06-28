@@ -122,6 +122,7 @@ function removeSearchBarFromFocus() {
   $('#search').css('top', '20px');
 }
 
+
 function searchCanditateExactName(cname) {
   db.getCandidateId(cname, function(data) {
     // TODO(ever): with data.id, update graph
@@ -139,6 +140,9 @@ searchInFocus = false;
 $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
+  $('#info_inner').fullpage({
+  });
+
 
   // TODO(rapha): suggest cadidate names as user types it.
 
@@ -188,7 +192,9 @@ $(document).ready(function(){
 
   // add arrow click event listeners
   $('.scrollDownArrow').click(function(){
+    console.log("downarrow");
     $.fn.fullpage.moveSectionDown();
+
   })
   $('.scrollUpArrow').click(function(){
     $.fn.fullpage.moveSectionUp();

@@ -31,9 +31,12 @@ Drawing.PoliticalGraph = function(options) {
 
   var that=this;
 
-  init();
-  createGraph();
-  animate();
+  document.addEventListener("DOMContentLoaded", function(event) {
+    init();
+    createGraph();
+    animate();
+  });
+
 
   function init() {
     // Three.js initialization
@@ -50,7 +53,7 @@ Drawing.PoliticalGraph = function(options) {
     controls.panSpeed = 1;
 
     controls.noZoom = false;
-    controls.noPan = false;
+    controls.noPan = true;
 
     controls.staticMoving = false;
     controls.dynamicDampingFactor = 0.3;
@@ -58,9 +61,19 @@ Drawing.PoliticalGraph = function(options) {
     controls.keys = [ 65, 83, 68 ];
 
     controls.addEventListener('change', render);
-
+    var container = document.getElementById( 'container' );
     scene = new THREE.Scene();
 
+    /* picking scene */
+    // pickingScene = new THREE.Scene();
+		// pickingTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight );
+		// pickingTexture.minFilter = THREE.LinearFilter;
+		// pickingTexture.generateMipmaps = false;
+
+    container.appendChild( renderer.domElement );
+
+
+    var material = new THREE.MeshDepthMaterial( { overdraw: 0.5 } );
     // Node geometry
     if(that.layout === "3d") {
       geometry = new THREE.CubeGeometry( 25, 25, 25 );
@@ -81,11 +94,12 @@ Drawing.PoliticalGraph = function(options) {
           }
         },
         clicked: function(obj) {
+          alert("You clicked on: Object" + obj.id );
         }
       });
     }
 
-    document.body.appendChild( renderer.domElement );
+    // document.body.appendChild( renderer.domElement );
 
     // Stats.js
     if(that.show_stats) {
@@ -103,6 +117,7 @@ Drawing.PoliticalGraph = function(options) {
       info.setAttributeNode(id_attr);
       document.body.appendChild( info );
     }
+
   }
 
   /**
@@ -182,7 +197,7 @@ Drawing.PoliticalGraph = function(options) {
     var size = Math.min(Math.max(Math.abs(node.data.subtree_weight)/10, 25), 500);
     // console.log(size);
     var node_geometry = new THREE.SphereGeometry(size/2, 32, 32);
-    var draw_object = new THREE.Mesh( node_geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
+    var draw_object = new THREE.Mesh( node_geometry, new THREE.MeshBasicMaterial( { color: node_color, opacity: 0.5 } ) );
 
     if(that.show_labels) {
       if(node.data.title != undefined) {
@@ -249,6 +264,7 @@ Drawing.PoliticalGraph = function(options) {
       graph.layout.generate();
     } else {
       info_text.calc = "";
+      // pick();
     }
 
     // Update position of lines (edges)
@@ -334,5 +350,45 @@ Drawing.PoliticalGraph = function(options) {
 
       return upperTwoHex.toString(16) + lowerFourHex.toString(16);
     }
+    //
+    // function pick() {
+    //
+		// 		//render the picking scene off-screen
+    //
+		// 		renderer.render( pickingScene, camera, pickingTexture );
+    //
+		// 		//create buffer for reading single pixel
+		// 		var pixelBuffer = new Uint8Array( 4 );
+    //
+		// 		//read the pixel under the mouse from the texture
+		// 		renderer.readRenderTargetPixels(pickingTexture, mouse.x, pickingTexture.height - mouse.y, 1, 1, pixelBuffer);
+    //
+		// 		//interpret the pixel as an ID
+    //
+		// 		var id = ( pixelBuffer[0] << 16 ) | ( pixelBuffer[1] << 8 ) | ( pixelBuffer[2] );
+		// 		var data = pickingData[ id ];
+    //
+		// 		if ( data) {
+    //
+		// 			//move our highlightBox so that it surrounds the picked object
+    //
+		// 			if ( data.position && data.rotation && data.scale ){
+    //
+		// 				highlightBox.position.copy( data.position );
+		// 				highlightBox.rotation.copy( data.rotation );
+		// 				highlightBox.scale.copy( data.scale ).add( offset );
+		// 				highlightBox.visible = true;
+    //
+		// 			}
+    //
+		// 		} else {
+    //
+		// 			highlightBox.visible = false;
+    //
+		// 		}
+    //
+		// 	}
+
+
 
 }

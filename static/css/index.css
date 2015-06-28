@@ -60,6 +60,19 @@ canvas {
   bottom:50px;
   width:90%;
 }
+.innerSection{
+  vertical-align:middle;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.section{
+  width:100%;
+  height:100%;
+  display:table;
+  table-layout:fixed;
+  position:relative;
+}
 .upArrowContainer{
   vertical-align:top;
   width:100%;
@@ -89,7 +102,6 @@ canvas {
 
   width:455px;
   height:100%;
-
   background-color: white;
   box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
 
@@ -121,9 +133,9 @@ canvas {
   padding: 94px 20px 20px 20px;
 }
 
-.section:not(.active){
+/*section:not(.active){
   display:none;
-}
+}*/
 
 #content {
   z-index: 1;
