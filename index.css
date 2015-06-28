@@ -1,0 +1,118 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: 100%;
+
+}
+
+#graph{
+  width: 100%;
+  height:100%;
+  background-image: url('http://geology.com/world/world-map.gif');
+  background-size:cover;
+}
+
+#searchBlur{
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+
+  z-index:2;
+  width:100%;
+  height:100%;
+}
+
+#info{
+  height:100%;
+
+  position:fixed;
+  right:0;
+  top:0;
+
+  -webkit-transition-duration:0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+#info_inner {
+  position: fixed;
+  right: -600px;
+
+  width:455px;
+  height:100%;
+
+  padding: 94px 20px 20px 20px;
+
+  background-color: white;
+  box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
+
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+#info_inner h3 {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+#content {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#search {
+  z-index: 3;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+  background-color:white;
+}
+
+#search_box {
+  width: 350px;
+
+  font-size: 16px;
+  padding: 16px 16px 16px 16px;
+
+  border-style: solid;
+  border-width: 2px 0px 2px 2px;
+  border-color: rgb(238, 238, 238);
+}
+
+#search-exit-logo {
+  float: right;
+  width: 64px;
+  height: 58px;
+
+  text-align: center;
+  padding: 16px 16px 16px 16px;
+  color: rgb(130, 130, 130);
+
+  background-color: white;
+
+  border-style: solid;
+  border-width: 2px 2px 2px 0px;
+  border-color: rgb(238, 238, 238);
+
+}
+
+#running_for_desc {
+  font-style: italic;
+}
+
+.info_label {
+  display: inline;
+}
