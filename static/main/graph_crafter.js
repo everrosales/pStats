@@ -23,12 +23,12 @@ Drawing.PoliticalGraph = function(options) {
   var geometries = [];
 
   var partyColorMap = {
-      "D": "#2196F3",
-      "R": "#F44336",
-      "I": "#009688",
-      "L": "#00BCD4",
-      "3": "#3F51B5",
-      "U": "#FF5722",
+      "D": "#1E87DB", //sky blue
+      "R": "#F44336", //#FF8566, light orange-red
+      "I": "#009688", //turq
+      "L": "#7A00A3", //purple
+      "3": "#CC0052", //red
+      "U": "#FF9900", //orange
   };
 
   var that=this;
@@ -322,11 +322,13 @@ Drawing.PoliticalGraph = function(options) {
    *  Create a node object and add it to the scene.
    */
   function drawNode(node) {
+    console.log("drawing");
     var node_color;
     if (node && node.data && node.data.node_party) {
-      node_color = partyColorMap[node.data.node_party] || "#F5F5F5";
+      console.log(node.data.node_party);
+      node_color = partyColorMap[node.data.node_party] || "#C0C0C0";
     } else {
-      node_color =  "#F5F5F5";
+      node_color =  "#C0C0C0";
     }
     var size = Math.min(Math.max(Math.abs(node.data.subtree_weight)/10, 25), 500);
     // console.log(size);
