@@ -2,14 +2,12 @@ body {
   font-family: 'Roboto', sans-serif;
   width: 100%;
   height: 100%;
-
 }
 
 #graph{
   width: 100%;
   height:100%;
-  background-image: url('http://geology.com/world/world-map.gif');
-  background-size:cover;
+  background-color: blue;
 }
 
 #searchBlur{

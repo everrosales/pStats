@@ -40,4 +40,5 @@ function removeSearchBarFromFocus() {
 }
 
 $(document).ready(function(){
+  $('body').css('height', $(document).height() + 'px');
 })
