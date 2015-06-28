@@ -343,134 +343,135 @@ $(document).ready(function(){
 
           }
         }
-      }
-      ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
-      var pacPie = new d3pie("contPie2", {
-        header: {
-          title: {
-            text: "PAC Contributions",
-            fontSize: 10,
+
+        ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
+        var pacPie = new d3pie("contPie2", {
+          header: {
+            title: {
+              text: "PAC Contributions",
+              fontSize: 10,
+            },
+            location: "pie-center"
           },
-          location: "pie-center"
-        },
-        size: {
-          pieInnerRadius: "70%",
-          canvasWidth: 270
-        },
-        data: {
-          content: PACs,
-          smallSegmentGrouping:{
+          size: {
+            pieInnerRadius: "70%",
+            canvasWidth: 270
+          },
+          data: {
+            content: PACs,
+            smallSegmentGrouping:{
+              enabled:true,
+              value:5
+            }
+          },
+          tooltips: {
             enabled:true,
-            value:5
-          }
-        },
-        tooltips: {
-          enabled:true,
-          string:"{label}: ${value}"
-        },
-        labels:{
-          "outer": {
-    			"pieDistance": 15
-    		  },
-    		"inner": {
-    			"hideWhenLessThanPercentage": 3
-    		  },
-    		"percentage": {
-    			"color": "#ffffff",
-    			"decimalPlaces": 0
-    		  },
-    		"value": {
-    			"color": "#adadad"
-        },
-        "truncation": {
-          "enabled":true,
-          "truncateLength":20
-        }
-
-        }
-      });
-      var pacPie2 = new d3pie("contPie3", {
-        header: {
-          title: {
-            text: "Individual Contributions",
-            fontSize: 10
+            string:"{label}: ${value}"
           },
-          location: "pie-center"
-        },
-        tooltips: {
-          enabled:true,
-          string:"{label}: ${value}"
-        },
-        size: {
-          pieInnerRadius: "70%",
-          canvasWidth: 270
-        },
-        data: {
-          content: individs,
-          smallSegmentGrouping:{
+          labels:{
+            "outer": {
+      			"pieDistance": 15
+      		  },
+      		"inner": {
+      			"hideWhenLessThanPercentage": 3
+      		  },
+      		"percentage": {
+      			"color": "#ffffff",
+      			"decimalPlaces": 0
+      		  },
+      		"value": {
+      			"color": "#adadad"
+          },
+          "truncation": {
+            "enabled":true,
+            "truncateLength":20
+          }
+
+          }
+        });
+        var pacPie2 = new d3pie("contPie3", {
+          header: {
+            title: {
+              text: "Individual Contributions",
+              fontSize: 10
+            },
+            location: "pie-center"
+          },
+          tooltips: {
             enabled:true,
-            value:5
-          }
-        },
-        tooltips: {
-          enabled:true,
-          string:"{label}: ${value}"
-        },
-        labels:{
-          "outer": {
-    			"pieDistance": 15
-    		  },
-    		"inner": {
-    			"hideWhenLessThanPercentage": 3
-    		  },
-    		"percentage": {
-    			"color": "#ffffff",
-    			"decimalPlaces": 0
-    		  },
-    		"value": {
-    			"color": "#adadad"
-          }
-
-        }
-      });
-      var pacPie3 = new d3pie("contPie", {
-        header: {
-          title: {
-            text: "Individual vs PAC Contributions",
-            fontSize: 10
+            string:"{label}: ${value}"
           },
-          location: "pie-center"
-        },
-        size: {
-          pieInnerRadius: "70%",
-          canvasWidth: 270
-        },
-        data: {
-          content: ind_vs_PAC
-        },
-        tooltips: {
-          enabled:true,
-          string:"{label}: ${value}"
-        },
-        labels:{
-          "outer": {
-    			"pieDistance": 15
-    		  },
-    		"inner": {
-    			"hideWhenLessThanPercentage": 3
-    		  },
-    		"percentage": {
-    			"color": "#ffffff",
-    			"decimalPlaces": 0
-    		  },
-    		"value": {
-    			"color": "#adadad"
+          size: {
+            pieInnerRadius: "70%",
+            canvasWidth: 270
+          },
+          data: {
+            content: individs,
+            smallSegmentGrouping:{
+              enabled:true,
+              value:5
+            }
+          },
+          tooltips: {
+            enabled:true,
+            string:"{label}: ${value}"
+          },
+          labels:{
+            "outer": {
+      			"pieDistance": 15
+      		  },
+      		"inner": {
+      			"hideWhenLessThanPercentage": 3
+      		  },
+      		"percentage": {
+      			"color": "#ffffff",
+      			"decimalPlaces": 0
+      		  },
+      		"value": {
+      			"color": "#adadad"
+            }
+
           }
+        });
+        var pacPie3 = new d3pie("contPie", {
+          header: {
+            title: {
+              text: "Individual vs PAC Contributions",
+              fontSize: 10
+            },
+            location: "pie-center"
+          },
+          size: {
+            pieInnerRadius: "70%",
+            canvasWidth: 270
+          },
+          data: {
+            content: ind_vs_PAC
+          },
+          tooltips: {
+            enabled:true,
+            string:"{label}: ${value}"
+          },
+          labels:{
+            "outer": {
+      			"pieDistance": 15
+      		  },
+      		"inner": {
+      			"hideWhenLessThanPercentage": 3
+      		  },
+      		"percentage": {
+      			"color": "#ffffff",
+      			"decimalPlaces": 0
+      		  },
+      		"value": {
+      			"color": "#adadad"
+            }
 
-        }
-      });
+          }
+        });
 
-    })
+      };
+    });
 
 
   })
@@ -501,7 +502,7 @@ $(document).ready(function(){
 
           }
         }
-      }
+
       ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
       var pacPie = new d3pie("expPie2", {
         header: {
@@ -628,9 +629,10 @@ $(document).ready(function(){
         }
       });
 
-    })
+    }
+  });
 
-  })
+});
 
   //dummy initialization
   var pacPie = new d3pie("contPie", {
@@ -729,7 +731,4 @@ $(document).ready(function(){
       content: [{'label':'hi','value':40}]
     }
   });
-
-
-
 });
