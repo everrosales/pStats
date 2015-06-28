@@ -163,6 +163,7 @@ $(document).ready(function(){
     var query = $('#search_box').val();
     searchCanditateExactName(query);
   }
+  
   $('#search_form').submit(searchEvent);
   $('#search-exit-logo').click(handleSearchExitEvent);
 

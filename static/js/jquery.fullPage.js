@@ -487,7 +487,7 @@
             options.css3 = support3d();
         }
 
-        FP.setAllowScrolling(true);
+        FP.setAllowScrolling(false);
         container.removeClass(DESTROYED); //in case it was destroyed before initilizing it again
 
 
