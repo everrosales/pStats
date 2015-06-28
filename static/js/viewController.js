@@ -235,6 +235,7 @@ function removeSearchBarFromFocus() {
 
 function searchCandidateById(cid) {
   // TODO(ever): with data.id, update graph
+  $('#loadingDiv').show();
   $("canvas").remove();
   var drawing;
   function createDrawing() {
