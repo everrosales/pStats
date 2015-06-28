@@ -39,9 +39,12 @@ function removeSearchBarFromFocus() {
   $('#search').css('top', '20px');
 }
 
+
 $(document).ready(function(){
   $('body').css('height', $(document).height() + 'px');
-  $('#info_inner').fullpage();
+  $('#info_inner').fullpage({
+  });
+
 
   $('.arrow').hover(function(){
     $(this).css('color', '#00BCD4'); //feel free to change this color
@@ -53,6 +56,7 @@ $(document).ready(function(){
 
   $('.scrollDownArrow').click(function(){
     $.fn.fullpage.moveSectionDown();
+
   })
   $('.scrollUpArrow').click(function(){
     $.fn.fullpage.moveSectionUp();

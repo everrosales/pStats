@@ -1087,7 +1087,7 @@
                     }
                 }
 
-                return false;
+                return true;
             }
 
             if(options.fitToSection){
