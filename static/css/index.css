@@ -58,17 +58,13 @@ canvas {
   transition-duration: 0.3s;
 }
 
-.downArrowContainer{
-  position:absolute;
-  bottom:50px;
-  width:90%;
-}
 .innerSection{
   vertical-align:middle;
   width:100%;
   height:100%;
   display:block;
 }
+
 .section{
   width:100%;
   height:100%;
@@ -76,6 +72,13 @@ canvas {
   table-layout:fixed;
   position:relative;
 }
+
+.downArrowContainer{
+  position: absolute;
+  bottom: 20px;
+  width:90%;
+}
+
 .upArrowContainer{
   vertical-align:top;
   width:100%;
@@ -91,6 +94,12 @@ canvas {
   vertical-align:middle;
   text-align:left;
   cursor:pointer;
+
+  height: 30px;
+}
+
+.upArrowContainer {
+  line-height: 200% !important;
 }
 
 .pieContainer{
@@ -113,10 +122,13 @@ svg{
   margin:0px !important;
   padding: 0px !important;
 }
-.arrowContainer{
 
+.downArrowContainer {
+  line-height: 30% !important;
+}
+
+.arrowContainer{
   text-align:center;
-  margin-top:20px;
   padding:10px;
 }
 
@@ -152,6 +164,7 @@ svg{
   font-size: 22px;
   font-weight: 200;
 }
+
 .fp-tableCell{
   display:block !important;
   height:100% !important;
@@ -221,7 +234,7 @@ svg{
   cursor: hand;
 }
 
-#running_for_desc {
+#running_for_desc, #current_office_desc {
   font-style: italic;
 }
 
