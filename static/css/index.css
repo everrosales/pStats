@@ -92,12 +92,31 @@ canvas {
   text-align:left;
   cursor:pointer;
 }
+
+.pieContainer{
+  height:300px;
+}
+svg{
+  margin-left:7%;
+}
+.p0_lineGroups{
+  margin:0px !important;
+  padding: 0px !important;
+}
 .arrowContainer{
 
   text-align:center;
   margin-top:20px;
   padding:10px;
 }
+
+#pacPie{
+  text-align:left;
+  height:100%;
+  width:100%;
+}
+
+
 
 #info_inner {
   position: fixed !important;

@@ -143,6 +143,28 @@ $(document).ready(function(){
   $('#info_inner').fullpage({
   });
 
+  var pacPie = new d3pie("pacPie", {
+    header: {
+    title: {
+      text: "A Simple Donut Pie"
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "80%",
+    canvasWidth: 350
+  },
+  data: {
+    sortOrder: "label-asc",
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+  });
 
   // TODO(rapha): suggest cadidate names as user types it.
 
