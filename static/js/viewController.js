@@ -206,7 +206,13 @@ function removeSearchBarFromFocus() {
 
 function searchCandidateById(cid) {
   // TODO(ever): with data.id, update graph
+  $("canvas").remove();
+  var drawing;
+  function createDrawing() {
+    drawing = new Drawing.PoliticalGraph({layout: '3d', selection: true, numNodes: 50, graphLayout:{attraction: 5, repulsion: 0.5}, showStats: true, showInfo: true, showLabels:true, candidate_id: cid})
+  }
 
+  createDrawing();
   removeSearchBarFromFocus();
   // openInfoPanel to this candidate.
   openInfoPanel(cid);
@@ -329,7 +335,7 @@ $(document).ready(function(){
 
   $('.toExpend').click(function(){
     if(!($('#expPie').text())){
-      
+
     }
   })
 /*var pacPie = new d3pie("pacPie", {
