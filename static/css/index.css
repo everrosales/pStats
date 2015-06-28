@@ -13,6 +13,7 @@ canvas {
     z-index: 1;
 }
 
+
 #graph-info {
   position: absolute;
   top: 0px;
@@ -54,14 +55,30 @@ canvas {
   transition-duration: 0.3s;
 }
 
+.arrowLabel{
+  color:rgb(130, 130, 130);
+}
+
+.scrollDownArrow, .scrollUpArrow{
+  color:rgb(130, 130, 130);
+  font-size:50px;
+  vertical-align:middle;
+  text-align:left;
+  cursor:pointer;
+}
+.arrowContainer{
+  width:100%;
+  text-align:center;
+  margin-top:20px;
+  padding:10px;
+}
+
 #info_inner {
   position: fixed;
   right: -600px;
 
   width:455px;
   height:100%;
-
-  padding: 94px 20px 20px 20px;
 
   background-color: white;
   box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
@@ -75,6 +92,26 @@ canvas {
 #info_inner h3 {
   font-size: 22px;
   font-weight: 200;
+}
+
+.section h3{
+  font-size: 22px;
+  font-weight: 200;
+}
+.fp-tableCell{
+  display:block !important;
+}
+
+.section{
+  background-color:white;
+  box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
+  width:100%;
+  height:100%;
+  padding: 94px 20px 20px 20px;
+}
+
+.section:not(.active){
+  display:none;
 }
 
 #content {

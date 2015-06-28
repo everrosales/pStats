@@ -132,4 +132,22 @@ $(document).ready(function(){
     var query = $('#search_box').val();
     searchCanditateExactName(query);
   });
-})
+
+  $('#info_inner').fullpage();
+
+  // add arrow event listeners
+  $('.arrow').hover(function(){
+    $(this).css('color', '#00BCD4'); //feel free to change this color
+    $(this).siblings('.arrowLabel').css('color', '#00BCD4');
+  }, function(){
+    $(this).css('color', 'rgb(130, 130, 130)');
+    $(this).siblings('.arrowLabel').css('color', 'rgb(130, 130, 130)');
+  });
+
+  $('.scrollDownArrow').click(function(){
+    $.fn.fullpage.moveSectionDown();
+  })
+  $('.scrollUpArrow').click(function(){
+    $.fn.fullpage.moveSectionUp();
+  })
+});
