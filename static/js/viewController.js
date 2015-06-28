@@ -720,7 +720,4 @@ $(document).ready(function(){
       content: [{'label':'hi','value':40}]
     }
   });
-
-
-
 });
