@@ -99,9 +99,15 @@ canvas {
 #graph-info{
   display:none;
 }
+#contPie, #contPie2, #contPie3, #expPie, #expPie2, #expPie3{
+  height:250px;
+}
 svg{
   margin-left:15%;
   overflow:visible !important;
+}
+.p3_labelGroup-outer, .p3_segmentMainLabel-outer{
+  background-color:white;
 }
 .p0_lineGroups{
   margin:0px !important;

@@ -235,90 +235,414 @@ $(document).ready(function(){
   };
 
   $('.toContrib').click(function(){
-    if(!($('#contPie').text())){
-      console.log(cname);
-      console.log(CAND_ID);
-      db.getCandidateContributions(CAND_ID, function(data) {
-        console.log(data)
-        if(data.records.length == 0){
-          $('#contPie').text("No contributions data available.")
+    pacPie.destroy();
+    pacPie2.destroy();
+    pacPie3.destroy();
+    console.log(cname);
+    console.log(CAND_ID);
+    var PAC_sum = 0;
+    var individ_sum = 0;
+    var PACs = [];
+    var individs = [];
+    db.getCandidateContributions(CAND_ID, function(data) {
+      var records = data.records;
+      if(data.records.length == 0){
+        $('#contPie').text("No contributions data available.")
+      }else{
+        for(var i=0; i<records.length; i++){
+          if (records[i].pac_id){ //this is a PAC
+            PACs.push({'label':records[i].pac_name, 'value':records[i].amount});
+            PAC_sum += records[i].amount;
+          }else if(records[i].individual_name){ //this is an individual
+            individs.push({'label':records[i].individual_name, 'value':records[i].amount});
+            individ_sum += records[i].amount;
+
+          }
+        }
+      }
+      ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
+      var pacPie = new d3pie("contPie2", {
+        header: {
+          title: {
+            text: "PAC Contributions",
+            fontSize: 10,
+          },
+          location: "pie-center"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: PACs,
+          smallSegmentGrouping:{
+            enabled:true,
+            value:5
+          }
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+    			"pieDistance": 15
+    		  },
+    		"inner": {
+    			"hideWhenLessThanPercentage": 3
+    		  },
+    		"percentage": {
+    			"color": "#ffffff",
+    			"decimalPlaces": 0
+    		  },
+    		"value": {
+    			"color": "#adadad"
+        },
+        "truncation": {
+          "enabled":true,
+          "truncateLength":20
         }
 
-      })
-    }
+        }
+      });
+      var pacPie2 = new d3pie("contPie3", {
+        header: {
+          title: {
+            text: "Individual Contributions",
+            fontSize: 10
+          },
+          location: "pie-center"
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: individs,
+          smallSegmentGrouping:{
+            enabled:true,
+            value:5
+          }
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+    			"pieDistance": 15
+    		  },
+    		"inner": {
+    			"hideWhenLessThanPercentage": 3
+    		  },
+    		"percentage": {
+    			"color": "#ffffff",
+    			"decimalPlaces": 0
+    		  },
+    		"value": {
+    			"color": "#adadad"
+          }
+
+        }
+      });
+      var pacPie3 = new d3pie("contPie", {
+        header: {
+          title: {
+            text: "Individual vs PAC Contributions",
+            fontSize: 10
+          },
+          location: "pie-center"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: ind_vs_PAC
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+    			"pieDistance": 15
+    		  },
+    		"inner": {
+    			"hideWhenLessThanPercentage": 3
+    		  },
+    		"percentage": {
+    			"color": "#ffffff",
+    			"decimalPlaces": 0
+    		  },
+    		"value": {
+    			"color": "#adadad"
+          }
+
+        }
+      });
+
+    })
+
 
   })
 
   $('.toExpend').click(function(){
-    if(!($('#expPie').text())){
-      
-    }
+    expPie.destroy();
+    expPie2.destroy();
+    expPie3.destroy();
+    var PAC_sum = 0;
+    var individ_sum = 0;
+    var PACs = [];
+    var individs = [];
+    db.getCandidateExpenditures(CAND_ID, function(data) {
+      var records = data.records;
+      if(data.records.length == 0){
+        $('#expPie').text("No expenditures data available.")
+      }else{
+        for(var i=0; i<records.length; i++){
+          if (records[i].pac_id){ //this is a PAC
+            PACs.push({'label':records[i].pac_name, 'value':records[i].amount});
+            PAC_sum += records[i].amount;
+          }else if(records[i].individual_name){ //this is an individual
+            individs.push({'label':records[i].individual_name, 'value':records[i].amount});
+            individ_sum += records[i].amount;
+
+          }
+        }
+      }
+      ind_vs_PAC = [{'label':'Individuals', 'value':individ_sum}, {'label':'PACs', 'value':PAC_sum}];
+      var pacPie = new d3pie("expPie2", {
+        header: {
+          title: {
+            text: "PAC Expenditures",
+            fontSize: 10,
+          },
+          location: "pie-center"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: PACs,
+          smallSegmentGrouping:{
+            enabled:true,
+            value:5
+          }
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+          "pieDistance": 15
+          },
+        "inner": {
+          "hideWhenLessThanPercentage": 3
+          },
+        "percentage": {
+          "color": "#ffffff",
+          "decimalPlaces": 0
+          },
+        "value": {
+          "color": "#adadad"
+        },
+        "truncation": {
+          "enabled":true,
+          "truncateLength":20
+        }
+
+        }
+      });
+      var expPie2 = new d3pie("expPie3", {
+        header: {
+          title: {
+            text: "Individual Expenditures",
+            fontSize: 10
+          },
+          location: "pie-center"
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: individs,
+          smallSegmentGrouping:{
+            enabled:true,
+            value:5
+          }
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+          "pieDistance": 15
+          },
+        "inner": {
+          "hideWhenLessThanPercentage": 3
+          },
+        "percentage": {
+          "color": "#ffffff",
+          "decimalPlaces": 0
+          },
+        "value": {
+          "color": "#adadad"
+          }
+
+        }
+      });
+      var expPie3 = new d3pie("expPie", {
+        header: {
+          title: {
+            text: "Individual vs PAC Expenditures",
+            fontSize: 10
+          },
+          location: "pie-center"
+        },
+        size: {
+          pieInnerRadius: "70%",
+          canvasWidth: 270
+        },
+        data: {
+          content: ind_vs_PAC
+        },
+        tooltips: {
+          enabled:true,
+          string:"{label}: ${value}"
+        },
+        labels:{
+          "outer": {
+          "pieDistance": 15
+          },
+        "inner": {
+          "hideWhenLessThanPercentage": 3
+          },
+        "percentage": {
+          "color": "#ffffff",
+          "decimalPlaces": 0
+          },
+        "value": {
+          "color": "#adadad"
+          }
+
+        }
+      });
+
+    })
+
   })
-/*var pacPie = new d3pie("pacPie", {
-  header: {
-    title: {
-      text: "A Simple Donut Pie",
-      fontSize: 12
+
+  //dummy initialization
+  var pacPie = new d3pie("contPie", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
     },
-    location: "pie-center"
-  },
-  size: {
-    pieInnerRadius: "70%",
-    canvasWidth: 300
-  },
-  data: {
-    content: [
-      { label: "JavaScript", value: 1 },
-      { label: "Ruby", value: 2 },
-      { label: "Java", value: 3 },
-      { label: "C++", value: 2 },
-      { label: "Objective-C", value: 6 }
-    ]
-  }
-});
-var pacPie2 = new d3pie("pacPie2", {
-  header: {
-    title: {
-      text: "A Simple Donut Pie",
-      fontSize: 12
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
     },
-    location: "pie-center"
-  },
-  size: {
-    pieInnerRadius: "70%",
-    canvasWidth: 300
-  },
-  data: {
-    content: [
-      { label: "JavaScript", value: 1 },
-      { label: "Ruby", value: 2 },
-      { label: "Java", value: 3 },
-      { label: "C++", value: 2 },
-      { label: "Objective-C", value: 6 }
-    ]
-  }
-});
-var pacPie3 = new d3pie("pacPie3", {
-  header: {
-    title: {
-      text: "A Simple Donut Pie",
-      fontSize: 12
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+  var pacPie2 = new d3pie("contPie2", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
     },
-    location: "pie-center"
-  },
-  size: {
-    pieInnerRadius: "70%",
-    canvasWidth: 300
-  },
-  data: {
-    content: [
-      { label: "JavaScript", value: 1 },
-      { label: "Ruby", value: 2 },
-      { label: "Java", value: 3 },
-      { label: "C++", value: 2 },
-      { label: "Objective-C", value: 6 }
-    ]
-  }
-});*/
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
+    },
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+  var pacPie3 = new d3pie("contPie3", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
+    },
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
+    },
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+  var expPie = new d3pie("expPie", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
+    },
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
+    },
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+  var expPie2 = new d3pie("expPie2", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
+    },
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
+    },
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+  var expPie3 = new d3pie("expPie3", {
+    header: {
+      title: {
+        text: "",
+        fontSize: 10
+      },
+      location: "pie-center"
+    },
+    size: {
+      pieInnerRadius: "70%",
+      canvasWidth: 300
+    },
+    data: {
+      content: [{'label':'hi','value':40}]
+    }
+  });
+
+
 
 });
