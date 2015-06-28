@@ -115,7 +115,7 @@ Drawing.PoliticalGraph = function(options) {
           }
         },
         clicked: function(obj) {
-          alert("You clicked on: Object" + obj.id );
+          searchCandidateById(obj.id);
         }
       });
     }
@@ -419,7 +419,9 @@ Drawing.PoliticalGraph = function(options) {
           node.data.label_object.lookAt(camera.position);
         } else {
           if(node.data.title != undefined) {
+            console.log(node);
             var label_object = new THREE.Label(node.data.title, node.data.draw_object);
+            console.log(label_object);
           } else {
             var label_object = new THREE.Label(node.id, node.data.draw_object);
           }
