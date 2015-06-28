@@ -4,6 +4,7 @@
   <head>
     <style type='text/css'>
       body {
+        font-family: 'Roboto', sans-serif;
         width: 100%;
         height: 100%;
       }
@@ -12,8 +13,16 @@
     {% block content %}
     {% endblock %}
 
-    <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
-    <script src="{% static 'js/leapController.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+    <script type="text/javascript" src="{% static 'js/Graph.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/webgl-frameworks/three.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils/Stats.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils/TrackballControls.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils/Label.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils/ObjectSelection.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/leapController.js' %}"></script>
   </head>
 
   <body>
