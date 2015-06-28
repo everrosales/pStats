@@ -102,6 +102,21 @@ canvas {
   line-height: 200% !important;
 }
 
+.pieContainer{
+  height:300px;
+}
+#graph-info{
+  display:none;
+}
+svg{
+  margin-left:15%;
+  overflow:visible !important;
+}
+.p0_lineGroups{
+  margin:0px !important;
+  padding: 0px !important;
+}
+
 .downArrowContainer {
   line-height: 30% !important;
 }
@@ -110,6 +125,14 @@ canvas {
   text-align:center;
   padding:10px;
 }
+
+#pacPie, #pacPie2, #pacPie3{
+  text-align:left;
+  height:100%;
+  width:100%;
+}
+
+
 
 #info_inner {
   position: fixed !important;

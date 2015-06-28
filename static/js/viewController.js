@@ -1,3 +1,5 @@
+CAND_ID = "";
+
 function _getParty(party_identifier) {
   switch(party_identifier) {
     case 'L':
@@ -88,6 +90,7 @@ function getWikipediaImages(cname, cb) {
 }
 
 function openInfoPanel(cid) {
+  CAND_ID=cid;
   // make icon on search bar be "clear"
   $('#search-exit-logo-icon').text('clear');
 
@@ -219,6 +222,7 @@ $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
 
+
   // initializes scrolling object
   $('#info_inner').fullpage();
 
@@ -307,4 +311,92 @@ $(document).ready(function(){
   String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
+
+  $('.toContrib').click(function(){
+    if(!($('#contPie').text())){
+      console.log(cname);
+      console.log(CAND_ID);
+      db.getCandidateContributions(CAND_ID, function(data) {
+        console.log(data)
+        if(data.records.length == 0){
+          $('#contPie').text("No contributions data available.")
+        }
+
+      })
+    }
+
+  })
+
+  $('.toExpend').click(function(){
+    if(!($('#expPie').text())){
+      
+    }
+  })
+/*var pacPie = new d3pie("pacPie", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});
+var pacPie2 = new d3pie("pacPie2", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});
+var pacPie3 = new d3pie("pacPie3", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie",
+      fontSize: 12
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "70%",
+    canvasWidth: 300
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});*/
+
 });

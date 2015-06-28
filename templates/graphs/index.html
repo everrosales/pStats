@@ -15,6 +15,7 @@
 <script type="text/javascript" src="{% static 'js/layouts/force-directed-layout.js'%}"></script>
 <script type="text/javascript" src="{% static 'main/graph_crafter.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/d3pie.min.js' %}"></script>
 <div id='content'>
   <div id="container"></div>
   <!-- <div id=searchBlur> -->
@@ -56,30 +57,36 @@
 
           <div class="arrowContainer downArrowContainer">
             <small class="arrowLabel">Contributions</small><br/>
-            <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
+            <i class="scrollDownArrow arrow material-icons toContrib">keyboard_arrow_down</i>
           </div>
         </div>
 
         <div class="section">
             <div class="arrowContainer upArrowContainer">
-              <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
+              <i class="scrollUpArrow arrow material-icons toOverview">keyboard_arrow_up</i><br/>
               <small class="arrowLabel">Overview</small>
             </div>
-            <p>hey what's up</p>
-            <p> I'm section 2!</p>
+            <div class="pieContainer">
+              <div id="contPie"></div>
+              <div id="contPie2"></div>
+              <div id="contPie3"></div>
+            </div>
             <div class="arrowContainer downArrowContainer">
               <small class="arrowLabel">Expenditures</small><br/>
-              <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
+              <i class="scrollDownArrow arrow material-icons toExpend">keyboard_arrow_down</i>
             </div>
         </div>
 
         <div class="section">
             <div class="arrowContainer upArrowContainer">
-              <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
+              <i class="scrollUpArrow arrow material-icons toContrib">keyboard_arrow_up</i><br/>
               <small class="arrowLabel">Contributions</small>
             </div>
-            <p>cool beans,</p>
-            <p>you've reached section 3</p>
+            <div class="pieContainer">
+              <div id="expPie"></div>
+              <div id="expPie2"></div>
+              <div id="expPie3"></div>
+            </div>
         </div>
 
       </div>
