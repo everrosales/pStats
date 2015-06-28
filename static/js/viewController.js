@@ -18,6 +18,16 @@ function closeInfoPanel() {
 
 function bringSearchBarToFocus() {
   closeInfoPanel();
-  // TODO: fade everything except for search bar.
-  // TODO: bring search bar to center of screen.
+  // blur
+  $('#searchBlur').css('filter', 'blur(7px)');
+  $('#searchBlur').css('-webkit-filter', 'blur(7px)');
+
+  // move search bar to center
+  var halfWindow = $(window).width()/2 - $('#search').width()/2;
+  var topThird = $(window).height()/3;
+  $('#search').css('right', halfWindow);
+  $('#search').css('top', topThird);
 }
+
+$(document).ready(function(){
+})
