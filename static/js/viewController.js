@@ -301,7 +301,6 @@ function searchCandidateById(cid) {
   createDrawing();
   removeSearchBarFromFocus();
   // openInfoPanel to this candidate.
-  console.log("cid" + cid);
   openInfoPanel(cid);
   console.log("Im doing this");
 }
@@ -313,6 +312,7 @@ function searchCandidateNameOnServer(cname, cb, errcb) {
 searchInFocus = false;
 
 $(document).ready(function(){
+  $('#loadingDiv').hide();
   $.extend({
       getUrlVars : function() {
           var vars = [], hash;
