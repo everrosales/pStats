@@ -18,8 +18,8 @@
 
     <div id='info'>
       <div id="info_inner">
+
         <div class="section">
-          <div class="innerSection">
             <div id='current_office'>
               <h3 id='current_office_label' class='info_label'>Governor of Illinois</h3>
             </div><br/>
@@ -32,10 +32,39 @@
               <small class="arrowLabel">Contributions</small><br/>
               <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
             </div>
+          <div id='headshot'>
+            <img id='headshot_img' href=''/>
+            <br/><br/>
           </div>
-        </div>
+
+          <div id='party'>
+            <h4 id='party_label' class='info_label'></h4>
+            <br/>
+          </div>
+
+          <div id='current_office'>
+            <span id='current_office_desc'>Currently:</span>
+            <h3 id='current_office_label' class='info_label'></h3>
+            <br/>
+          </div>
+
+          <div id='running_for'>
+            <span id='running_for_desc'>Running for:</span><br/>
+            <h3 id='running_for_label' class='info_label'></h3>
+            <br/>
+          </div>
+
+          <div id='wiki_info'>
+            <h5 id='wiki_info_label'></h5>
+            <div id='wiki_info_link'>
+              <a id='wiki_info_link_href' href=''>
+                <small>Wikipedia</small>
+              </a>
+            </div>
+          </div>
+      </div>
+
         <div class="section">
-            <div class="innerSection">
             <div class="arrowContainer upArrowContainer">
               <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
               <small class="arrowLabel">Overview</small>
@@ -46,28 +75,29 @@
               <small class="arrowLabel">Expenditures</small><br/>
               <i class="scrollDownArrow arrow material-icons">keyboard_arrow_down</i>
             </div>
-          </div>
         </div>
+
         <div class="section">
-          <div class="innerSection">
             <div class="arrowContainer upArrowContainer">
               <i class="scrollUpArrow arrow material-icons">keyboard_arrow_up</i><br/>
               <small class="arrowLabel">Contributions</small>
             </div>
             <p>cool beans,</p>
             <p>you've reached section 3</p>
-          </div>
         </div>
+
       </div>
     </div>
 
   </div>
 
   <div id='search'>
-    <input id='search_box' type='text' name='search'></input>
-    <div id='search-exit-logo'>
-      <i class='material-icons'>search</i> <!-- change to clear when in focus. -->
-    </div>
+    <form id='search_form'>
+      <input id='search_box' type='text' name='search'></input>
+      <div id='search-exit-logo'>
+        <i class='material-icons'>search</i> <!-- change to clear when in focus. -->
+      </div>
+    </form>
   </div>
 
 </div>
