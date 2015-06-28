@@ -256,6 +256,7 @@ function searchCandidateNameOnServer(cname, cb, errcb) {
 searchInFocus = false;
 
 $(document).ready(function(){
+  $('#loadingDiv').hide();
   $.extend({
       getUrlVars : function() {
           var vars = [], hash;
