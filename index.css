@@ -24,17 +24,21 @@ body {
 #info_inner {
   position: fixed;
   right: -600px;
-  width:456px;
+
+  width:455px;
   height:100%;
+
+  padding: 94px 20px 20px 20px;
+
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  padding-top: 80px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
+}
 
+#info_inner h3 {
+  font-size: 22px;
+  font-weight: 200;
 }
 
 #content {
@@ -83,4 +87,12 @@ body {
   border-width: 2px 2px 2px 0px;
   border-color: rgb(238, 238, 238);
 
+}
+
+#running_for_desc {
+  font-style: italic;
+}
+
+.info_label {
+  display: inline;
 }
