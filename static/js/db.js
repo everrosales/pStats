@@ -13,7 +13,11 @@ var db = {
       $.ajax(SERVER + '/data/candidate/expenditures/' + cid).done(cb);
     },
 
-  getCandidateId: function(cname, cb) {
-      $.ajax(SERVER + '/data/candidate/getid/' + cname).done(cb);
-    }
+  getCandidateId: function(cname, cb, errcb) {
+      $.ajax(SERVER + '/data/candidate/getid/' + cname, { "error": errcb }).done(cb);
+    },
+
+  getAllCandidates: function(cb) {
+    $.ajax(SERVER + '/data/candidate/all').done(cb);
+  }
 }

@@ -29,6 +29,7 @@ function openInfoPanel(cid) {
   // make icon on search bar be "clear"
   $('#search-exit-logo-icon').text('clear');
 
+  // move info panel to first slide.
   $.fn.fullpage.moveTo(1);
 
   // TODO(rapha): display a loading gif on the whole panel.
@@ -122,17 +123,16 @@ function removeSearchBarFromFocus() {
   $('#search').css('top', '20px');
 }
 
+function searchCandidateById(cid) {
+  // TODO(ever): with data.id, update graph
 
-function searchCanditateExactName(cname) {
-  db.getCandidateId(cname, function(data) {
-    // TODO(ever): with data.id, update graph
+  removeSearchBarFromFocus();
+  // openInfoPanel to this candidate.
+  openInfoPanel(cid);
+}
 
-    // TODO(rapha): if ID not found, notify user.
-
-    removeSearchBarFromFocus();
-    // openInfoPanel to this candidate.
-    openInfoPanel(data.id);
-  })
+function searchCandidateNameOnServer(cname, cb, errcb) {
+  db.getCandidateId(cname, cb, errcb);
 }
 
 searchInFocus = false;
@@ -140,8 +140,6 @@ searchInFocus = false;
 $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
-  $('#info_inner').fullpage({
-  });
 
   var pacPie = new d3pie("pacPie", {
     header: {
@@ -164,10 +162,22 @@ $(document).ready(function(){
       { label: "Objective-C", value: 6 }
     ]
   }
+  // initializes scrolling object
+  $('#info_inner').fullpage();
+
+  // suggest cadidate names as user types it.
+  db.getAllCandidates(function(data) {
+    candidateIds = data.records;
+    var availableTags = candidateIds.map(function(e) { return e.name });
+    $('#search_box').autocomplete({ source: availableTags });
   });
 
-  // TODO(rapha): suggest cadidate names as user types it.
+  function getCandidateFromDict(cname) {
+    return $.grep(candidateIds, function(e){ return e.name == cname; });
+  }
 
+  // handles when user clicks on the search-or-exit button
+  // (which could mean starting a search, or exiting info panel)
   function handleSearchExitEvent(event) {
     if (searchInFocus) {
       searchInFocus = true;
@@ -178,31 +188,45 @@ $(document).ready(function(){
     }
   }
 
-  // make search bar work.
+  // starts a search for a candidate.
   function searchEvent(event) {
     event.preventDefault();
     $('#search_box').blur();
     var query = $('#search_box').val();
-    searchCanditateExactName(query);
+
+    // get candidate id, either from dict or from server.
+    candidateRes = getCandidateFromDict(query);
+    if (candidateRes.length == 0) {
+      // Candidate not in dict. Check server.
+      searchCandidateNameOnServer(query, function(data) {
+        searchCandidateById(data.id);
+      }, function (errordata) {
+        // id not on server. notify user.
+        $('#search_box').focus();
+        $('#search_box').val('Oops! Candidate Not Found.');
+      });
+    } else {
+      // Candidate in dict.
+      searchCandidateById(candidateRes[0].id);
+    }
   }
 
-  $('#search_form').submit(searchEvent);
-  $('#search-exit-logo').click(handleSearchExitEvent);
+  $('#search_form').submit(searchEvent); // on enter
+  $('#search-exit-logo').click(handleSearchExitEvent); // on press button
 
   // brings search bar to focus.
   $('#search_box').focus(function(event) {
     searchInFocus = true;
     bringSearchBarToFocus();
   });
+
+  // remove search bar from focus.
   $('#search_box').blur(function(event) {
     setTimeout(function(event) {
       searchInFocus = false;
       removeSearchBarFromFocus(event);
     }, 400);
   });
-
-  // initializes scrolling object
-  $('#info_inner').fullpage();
 
   // add arrow hover event listeners
   $('.arrow').hover(function(){
@@ -223,6 +247,7 @@ $(document).ready(function(){
     $.fn.fullpage.moveSectionUp();
   })
 
+  // useful string functionality.
   String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
