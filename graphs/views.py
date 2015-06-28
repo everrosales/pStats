@@ -85,7 +85,7 @@ def contributions_to_candidates(request, cid, number):
 
 	return JsonResponse(response_dict)
 
-def candidate_expenditures(request, cid):
+def candidate_expenditures(request, cid, number):
 	response_dict = {}
 	response_list = []
 
@@ -99,7 +99,10 @@ def candidate_expenditures(request, cid):
 		}
 		response_list.append(record)
 
-	response_dict["records"] = response_list[:5]
+	if number:
+		response_list = response_list[:5]
+
+	response_dict["records"] = response_list
 
 	return JsonResponse(response_dict)
 
