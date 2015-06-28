@@ -141,27 +141,7 @@ $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
 
-  var pacPie = new d3pie("pacPie", {
-    header: {
-    title: {
-      text: "A Simple Donut Pie"
-    },
-    location: "pie-center"
-  },
-  size: {
-    pieInnerRadius: "80%",
-    canvasWidth: 350
-  },
-  data: {
-    sortOrder: "label-asc",
-    content: [
-      { label: "JavaScript", value: 1 },
-      { label: "Ruby", value: 2 },
-      { label: "Java", value: 3 },
-      { label: "C++", value: 2 },
-      { label: "Objective-C", value: 6 }
-    ]
-  }
+
   // initializes scrolling object
   $('#info_inner').fullpage();
 
@@ -239,7 +219,6 @@ $(document).ready(function(){
 
   // add arrow click event listeners
   $('.scrollDownArrow').click(function(){
-    console.log("downarrow");
     $.fn.fullpage.moveSectionDown();
 
   })
@@ -251,4 +230,26 @@ $(document).ready(function(){
   String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
+var pacPie = new d3pie("pacPie", {
+  header: {
+    title: {
+      text: "A Simple Donut Pie"
+    },
+    location: "pie-center"
+  },
+  size: {
+    pieInnerRadius: "80%",
+    canvasWidth: 350
+  },
+  data: {
+    content: [
+      { label: "JavaScript", value: 1 },
+      { label: "Ruby", value: 2 },
+      { label: "Java", value: 3 },
+      { label: "C++", value: 2 },
+      { label: "Objective-C", value: 6 }
+    ]
+  }
+});
+
 });
