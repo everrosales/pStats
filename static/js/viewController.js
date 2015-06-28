@@ -41,4 +41,22 @@ function removeSearchBarFromFocus() {
 
 $(document).ready(function(){
   $('body').css('height', $(document).height() + 'px');
+  openInfoPanel();
+  $('#info_inner').fullpage();
+
+  $('.arrow').hover(function(){
+    $(this).css('color', '#00BCD4'); //feel free to change this color
+    $(this).siblings('.arrowLabel').css('color', '#00BCD4');
+  }, function(){
+    $(this).css('color', 'rgb(130, 130, 130)');
+    $(this).siblings('.arrowLabel').css('color', 'rgb(130, 130, 130)');
+  });
+
+  $('.scrollDownArrow').click(function(){
+    $.fn.fullpage.moveSectionDown();
+  })
+  $('.scrollUpArrow').click(function(){
+    $.fn.fullpage.moveSectionUp();
+  })
+
 })
