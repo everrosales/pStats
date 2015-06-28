@@ -44,6 +44,9 @@ canvas {
 
 #info{
   height:100%;
+  width: 400px;
+
+  z-index: 2;
 
   position:fixed !important;
   right:0;
