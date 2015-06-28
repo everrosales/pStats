@@ -135,7 +135,7 @@ $(document).ready(function(){
 
   $('#info_inner').fullpage();
 
-  // add arrow event listeners
+  // add arrow hover event listeners
   $('.arrow').hover(function(){
     $(this).css('color', '#00BCD4'); //feel free to change this color
     $(this).siblings('.arrowLabel').css('color', '#00BCD4');
@@ -144,6 +144,7 @@ $(document).ready(function(){
     $(this).siblings('.arrowLabel').css('color', 'rgb(130, 130, 130)');
   });
 
+  // add arrow click event listeners
   $('.scrollDownArrow').click(function(){
     $.fn.fullpage.moveSectionDown();
   })
