@@ -178,7 +178,10 @@ Drawing.PoliticalGraph = function(options) {
     } else {
       node_color =  "#607DB8";
     }
-    var draw_object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
+    var size = Math.min(Math.max(node.data.subtree_weight, 20), 500);
+    // console.log(size);
+    var node_geometry = new THREE.SphereGeometry(size/2, 32, 32);
+    var draw_object = new THREE.Mesh( node_geometry, new THREE.MeshBasicMaterial( {  color: node_color, opacity: 0.5 } ) );
 
     if(that.show_labels) {
       if(node.data.title != undefined) {
