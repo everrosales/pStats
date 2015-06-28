@@ -26,6 +26,9 @@ function getWikipediaImages(cname, cb) {
 }
 
 function openInfoPanel(cid) {
+  // make icon on search bar be "clear"
+  $('#search-exit-logo-icon').text('clear');
+
   // TODO(amanda): move info panel to first slide.
 
   // TODO(rapha): display a loading gif on the whole panel.
@@ -85,6 +88,9 @@ function openInfoPanel(cid) {
 }
 
 function closeInfoPanel() {
+  // make icon on search bar be "search"
+  $('#search-exit-logo-icon').text('search');
+
   // slide info panel out.
   $('#info').css('right', '-35px');
   $('#info_inner').css('right', '-600px');
@@ -128,25 +134,45 @@ function searchCanditateExactName(cname) {
   })
 }
 
+searchInFocus = false;
+
 $(document).ready(function(){
   // needed to set actual height of body
   $('body').css('height', $(document).height() + 'px');
 
   // TODO(rapha): suggest cadidate names as user types it.
 
+  function handleSearchExitEvent(event) {
+    if (searchInFocus) {
+      searchInFocus = true;
+      searchEvent(event);
+    } else {
+      $('#search_box').val('');
+      closeInfoPanel();
+    }
+  }
+
   // make search bar work.
   function searchEvent(event) {
     event.preventDefault();
-    removeSearchBarFromFocus();
+    $('#search_box').blur();
     var query = $('#search_box').val();
     searchCanditateExactName(query);
   }
   $('#search_form').submit(searchEvent);
-  $('#search-exit-logo').on('click', searchEvent);
+  $('#search-exit-logo').click(handleSearchExitEvent);
 
   // brings search bar to focus.
-  $('#search_box').focus(bringSearchBarToFocus);
-  $('#search_box').blur(removeSearchBarFromFocus);
+  $('#search_box').focus(function(event) {
+    searchInFocus = true;
+    bringSearchBarToFocus();
+  });
+  $('#search_box').blur(function(event) {
+    setTimeout(function(event) {
+      searchInFocus = false;
+      removeSearchBarFromFocus(event);
+    }, 400);
+  });
 
   // initializes scrolling object
   $('#info_inner').fullpage();
