@@ -1,0 +1,135 @@
+from django.db import models
+
+# Create your models here.
+class Candidate(models.Model):
+	Cycle = models.CharField(max_length=4)
+	FECCandID = models.CharField(max_length=9)
+	CID = models.CharField(max_length=9)
+	FirstLastP = models.CharField(max_length=50)
+	Party = models.CharField(max_length=1)
+	DistIDRunFor = models.CharField(max_length=4)
+	DistIDCurr = models.CharField(max_length=4)
+	CurrCand = models.CharField(max_length=1)
+	CycleCand = models.CharField(max_length=1)
+	CRPICO = models.CharField(max_length=1)
+	RecipCode = models.CharField(max_length=2)
+	NoPacs = models.CharField(max_length=1)
+
+	def __unicode__(self):
+		return str(self.FirstLastP)
+
+class Committee(models.Model):
+	Cycle = models.CharField(max_length=4)
+	CmteID = models.CharField(max_length=9)
+	PACShort = models.CharField(max_length=50)
+	Affiliate = models.CharField(max_length=50, null=True, blank=True)
+	Ultorg = models.CharField(max_length=50, null=True, blank=True)
+	RecipID = models.CharField(max_length=9)
+	RecipCode = models.CharField(max_length=2)
+	FECCandID = models.CharField(max_length=9)
+	Party = models.CharField(max_length=1)
+	PrimCode = models.CharField(max_length=5, null=True, blank=True)
+	Source = models.CharField(max_length=10, null=True, blank=True)
+	Sensitive = models.CharField(max_length=1, null=True, blank=True)
+	Foreign = models.IntegerField(null=True, blank=True)
+	Active = models.IntegerField(null=True, blank=True)
+
+	def __unicode__(self):
+		return str(self.PACShort)
+
+class Expenditure(models.Model):
+	Cycle = models.CharField(max_length=4)
+	TransID = models.CharField(max_length=20)
+	CRPFilerid = models.CharField(max_length=20)
+	Recipcode = models.CharField(max_length=2)
+	Pacshort = models.CharField(max_length=50)
+	CRPRecipname = models.CharField(max_length=90)
+	Expcode = models.CharField(max_length=3)
+	Amount = models.FloatField()
+	Date = models.DateField()
+	City = models.CharField(max_length=30)
+	State = models.CharField(max_length=2)
+	Zip = models.CharField(max_length=10)
+	CmteID_EF = models.CharField(max_length=20)
+	Candid = models.CharField(max_length=9)
+	Type = models.CharField(max_length=3)
+	Descrip = models.CharField(max_length=100)
+	PG = models.CharField(max_length=5)
+	ElecOther = models.CharField(max_length=20)
+	EntType = models.CharField(max_length=3)
+	Source = models.CharField(max_length=5)
+
+	def __unicode__(self):
+		return str(self.TransID)
+
+class IndividualContribution(models.Model):
+	Cycle = models.CharField(max_length=4)
+	FECTransID = models.CharField(max_length=19)
+	ContribID = models.CharField(max_length=12)
+	Contrib = models.CharField(max_length=50)
+	RecipID = models.CharField(max_length=9)
+	Orgname = models.CharField(max_length=50)
+	UltOrg = models.CharField(max_length=50)
+	RealCode = models.CharField(max_length=5)
+	Date = models.DateField()
+	Amount = models.FloatField()
+	Street = models.CharField(max_length=40)
+	City = models.CharField(max_length=30)
+	State = models.CharField(max_length=2)
+	Zip = models.CharField(max_length=5)
+	RecipCode = models.CharField(max_length=2)
+	Type = models.CharField(max_length=3)
+	CmtelID = models.CharField(max_length=9)
+	OtherID = models.CharField(max_length=9)
+	Gender = models.CharField(max_length=1)
+	Microfilm = models.CharField(max_length=11)
+	Occupation = models.CharField(max_length=38)
+	Employer = models.CharField(max_length=38)
+	Source = models.CharField(max_length=5)
+
+	def __unicode__(self):
+		return str(self.FECTransID)
+
+class PACtoCandidate(models.Model):
+	Cycle = models.CharField(max_length=4)
+	FECRecNo = models.CharField(max_length=19)
+	PACID = models.CharField(max_length=9)
+	CID = models.CharField(max_length=9)
+	Amount = models.FloatField()
+	Date = models.DateField()
+	RealCode = models.CharField(max_length=5)
+	Type = models.CharField(max_length=3)
+	DI = models.CharField(max_length=1)
+	FECCandID = models.CharField(max_length=9)
+
+	def __unicode__(self):
+		return str(self.FECRecNo)
+
+class PACtoPAC(models.Model):
+	Cycle = models.CharField(max_length=4)
+	FECRecNo = models.CharField(max_length=19)
+	Filerid = models.CharField(max_length=9)
+	DonorCmte = models.CharField(max_length=50)
+	ContribLendTrans = models.CharField(max_length=50)
+	City = models.CharField(max_length=30)
+	State = models.CharField(max_length=2)
+	Zip = models.CharField(max_length=5)
+	FECOccEmp = models.CharField(max_length=38)
+	PrimCode = models.CharField(max_length=5)
+	Date = models.DateField()
+	Amount = models.FloatField()
+	RecipID = models.CharField(max_length=9)
+	Party = models.CharField(max_length=1)
+	Otherid = models.CharField(max_length=9)
+	RecipCode = models.CharField(max_length=2)
+	RecipPrimcode = models.CharField(max_length=5)
+	Amend = models.CharField(max_length=1)
+	Report = models.CharField(max_length=3)
+	PG = models.CharField(max_length=1)
+	Microfilm = models.CharField(max_length=11)
+	Type = models.CharField(max_length=3)
+	RealCode = models.CharField(max_length=5)
+	Source = models.CharField(max_length=5)
+
+	def __unicode__(self):
+		return str(self.FECRecNo)

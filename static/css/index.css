@@ -1,0 +1,454 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #2a325b;
+}
+
+canvas {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+#graph-info {
+  position: absolute;
+  top: 0px;
+  left: 40%;
+  margin: 10px;
+  background-color: #ffffe0;
+  color: #333;
+  padding: 5px 10px;
+}
+
+#options {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+#searchBlur{
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+
+  z-index:2;
+  width:100%;
+  height:100%;
+}
+
+#info{
+  height:100%;
+  width: 400px;
+
+  z-index: 2;
+
+  position:fixed !important;
+  right:0;
+  top:0;
+
+  -webkit-transition-duration:0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.innerSection{
+  vertical-align:middle;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.section{
+  width:100%;
+  height:100%;
+  display:table;
+  table-layout:fixed;
+  position:relative;
+}
+
+.downArrowContainer{
+  position: absolute;
+  bottom: 20px;
+  width:90%;
+}
+
+.upArrowContainer{
+  vertical-align:top;
+  width:100%;
+}
+
+.arrowLabel{
+  color:rgb(130, 130, 130);
+}
+
+.scrollDownArrow, .scrollUpArrow{
+  color:rgb(130, 130, 130);
+  font-size:50px;
+  vertical-align:middle;
+  text-align:left;
+  cursor:pointer;
+
+  height: 30px;
+}
+#loadingDiv{
+  height:100%;
+  z-index:4;
+  background-color:rgba(255, 255, 255, 0.5);
+  position: fixed !important;
+  right:0px;
+
+  width:455px;
+  height:100%;
+}
+
+.upArrowContainer {
+  line-height: 200% !important;
+}
+
+.pieContainer{
+  height:300px;
+}
+#graph-info{
+  /*display:none;*/
+}
+#contPie, #contPie2, #contPie3, #expPie, #expPie2, #expPie3{
+  height:250px;
+}
+
+#contPieLabel {
+  height: 50%;
+  text-align: center;
+  padding-top: 50%;
+}
+
+svg{
+  margin-left:15%;
+  overflow:visible !important;
+}
+.p3_labelGroup-outer, .p3_segmentMainLabel-outer{
+  background-color:white;
+}
+.p0_lineGroups{
+  margin:0px !important;
+  padding: 0px !important;
+}
+
+.downArrowContainer {
+  line-height: 30% !important;
+}
+
+.arrowContainer{
+  text-align:center;
+  padding:10px;
+}
+
+#pacPie, #pacPie2, #pacPie3{
+  text-align:left;
+  height:100%;
+  width:100%;
+}
+
+
+
+#info_inner {
+  position: fixed !important;
+  right: -600px;
+
+  width:455px;
+  height:100%;
+  background-color: white;
+  box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
+
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+#info_inner h3 {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.section h3{
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.fp-tableCell{
+  display:block !important;
+  height:100% !important;
+}
+
+.section{
+  background-color:white;
+  box-shadow: -2px 0px 5px 0px rgba(0,0,0,0.75);
+  width:100%;
+  height:100%;
+  padding: 94px 20px 20px 20px;
+}
+
+/*section:not(.active){
+  display:none;
+}*/
+
+#content {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#search {
+  z-index: 5;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+  background-color:white;
+}
+
+#logo {
+  z-index: 3;
+  position: absolute;
+  left: 13px;
+  top: 13px;
+}
+
+#logo_img {
+  height: 58px;
+}
+
+#search_box {
+  width: 350px;
+
+  font-size: 16px;
+  padding: 16px 16px 16px 16px;
+
+  border-style: solid;
+  border-width: 2px 0px 2px 2px;
+  border-color: rgb(238, 238, 238);
+}
+
+#search-exit-logo {
+  float: right;
+  width: 64px;
+  height: 58px;
+
+  text-align: center;
+  padding: 16px 16px 16px 16px;
+  color: rgb(130, 130, 130);
+
+  background-color: white;
+
+  border-style: solid;
+  border-width: 2px 2px 2px 0px;
+  border-color: rgb(238, 238, 238);
+
+  cursor: pointer;
+  cursor: hand;
+}
+
+#running_for_desc, #current_office_desc {
+  font-style: italic;
+}
+
+.info_label {
+  display: inline;
+}
+
+#wiki_info_link {
+  width: 100%;
+  text-align: right;
+}
+
+#headshot {
+  width: 100%;
+  text-align: center;
+}
+
+#headshot_img {
+  width: 50%;
+}
+
+.circle{
+    width: 180px;
+    height: 180px;
+    border: 10px inset rgb(133,224,242);
+    display: block;
+    position: fixed;
+    top: 50%;
+    right:130px;
+    margin-left: -100px;
+    margin-top: -100px;
+    border-radius: 200px;
+    -moz-animation: rotate 5s infinitelinear;
+    -webkit-animation: rotate 5s infinite linear;
+    animation: rotate 5s infinite linear;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.circle-small{
+    width: 150px;
+    height: 150px;
+    border: 6px outset rgb(133,224,242);
+    display: block;
+    position: fixed;
+    top: 49.75%;
+    right:145px;
+    margin-left: -81px;
+    margin-top: -81px;
+    border-radius: 156px;
+    -moz-animation: rotate-rev 3s infinite linear;
+    -webkit-animation: rotate-rev 3s infinite linear;
+    animation: rotate-rev 3s infinite linear;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.circle-big{
+    width: 210px;
+    height: 210px;
+    border: 4px dotted rgb(133,224,242);
+    display: block;
+    position: fixed;
+    top: 49.75%;
+    right:115px;
+    margin-left: -109px;
+    margin-top: -109px;
+    border-radius: 214px;
+    -moz-animation: rotate-rev 10s infinite linear;
+    -webkit-animation: rotate-rev 10s infinite linear;
+    animation: rotate-rev 10s infinite linear;
+}
+
+.circle-inner{
+    width: 80px;
+    height: 80px;
+    background-color: rgb(133,224,242);
+    display: block;
+    position: fixed;
+    top: 50%;
+    right:7%;
+    margin-left: -40px;
+    margin-top: -40px;
+    border-radius: 80px;
+    -moz-animation: pulse 1.5s infinite ease-in;
+    -webkit-animation: pulse 1.5s infinite ease-in;
+    animation: pulse 1.5s infinite ease-in;
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.circle-inner-inner{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(74,124,134);
+    display: block;
+    position: fixed;
+    top: 50%;
+    right:7%;
+    margin-left: -50px;
+    margin-top: -50px;
+    border-radius: 100px;
+    -moz-animation: pulse 1.5s infinite ease-in;
+    -webkit-animation: pulse 1.5s infinite ease-in;
+    animation: pulse 1.5s infinite ease-in;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+
+/*==============ANIMATIONS=================*/
+
+/*==============ROTATE=====================*/
+
+@-moz-keyframes rotate{
+  0% {-moz-transform: rotate(0deg);}
+  100% {-moz-transform: rotate(360deg);}
+}
+
+@-webkit-keyframes rotate{
+	0% {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}
+}
+
+@keyframes rotate{
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+/*==============ROTATE-REV=================*/
+
+@-moz-keyframes rotate-rev{
+	0% {-moz-transform: rotate(0deg);}
+	100% {-moz-transform: rotate(-360deg);}
+}
+
+@-webkit-keyframes rotate-rev{
+	0% {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(-360deg);}
+}
+
+@keyframes rotate-rev{
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(-360deg);}
+}
+
+/*==============PULSE======================*/
+
+@-moz-keyframes pulse{
+	0% {
+        -moz-transform: scale(0.1);
+        opacity: 0.2;
+    }
+	50% {
+        -moz-transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        -moz-transform: scale(0.1);
+        opacity: 0.2;
+    }
+}
+
+@-webkit-keyframes pulse{
+	0% {
+        -webkit-transform: scale(0.1);
+        opacity: 0.2;
+    }
+	50% {
+        -webkit-transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        -webkit-transform: scale(0.1);
+        opacity: 0.2;
+    }
+}
+
+@keyframes pulse{
+	0% {
+        transform: scale(0.1);
+        opacity: 0.2;
+    }
+	50% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+  100% {
+        transform: scale(0.1);
+        opacity: 0.2;
+    }
+}

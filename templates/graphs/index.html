@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery.fullPage.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webgl-frameworks/three.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webgl-frameworks/Three.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/Graph.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/Stats.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/TrackballControls.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/Label.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/utils/ObjectSelection.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layouts/force-directed-layout.js'%}"></script>
+<script type="text/javascript" src="{% static 'main/graph_crafter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/d3pie.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/viewController.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/leapController.js' %}"></script>
+<div id='content'>
+  <div id="container"></div>
+  <!-- <div id=searchBlur> -->
+
+    <div id='logo'>
+      <img id='logo_img' src="/static/imgs/inflowence.png"/>
+    </div>
+
+    <div id='info'>
+      <div id="loadingDiv">
+        <div class="circle"></div>
+        <div class="circle-small"></div>
+        <div class="circle-big"></div>
+      </div>
+      <div id="info_inner">
+
+        <div class="section">
+          <div id='headshot'>
+            <img id='headshot_img' href=''/>
+            <br/><br/>
+          </div>
+
+          <div id='party'>
+            <h4 id='party_label' class='info_label'></h4>
+            <br/><br/>
+          </div>
+
+          <div id='current_office'>
+            <span id='current_office_desc'>Currently:</span><br/>
+            <h3 id='current_office_label' class='info_label'></h3>
+            <br/>
+          </div>
+
+          <div id='running_for'>
+            <span id='running_for_desc'>Running for:</span><br/>
+            <h3 id='running_for_label' class='info_label'></h3>
+            <br/>
+          </div>
+
+          <div id='wiki_info'>
+            <div id='wiki_info_link'>
+              <a id='wiki_info_link_href' href=''>
+                <small>Wikipedia</small>
+              </a>
+            </div>
+            <h5 id='wiki_info_label'></h5>
+          </div>
+
+          <div class="arrowContainer downArrowContainer">
+            <small class="arrowLabel">Contributions</small><br/>
+            <i class="scrollDownArrow arrow material-icons toContrib">keyboard_arrow_down</i>
+          </div>
+        </div>
+
+        <div class="section">
+            <div class="arrowContainer upArrowContainer">
+              <i class="scrollUpArrow arrow material-icons toOverview">keyboard_arrow_up</i><br/>
+              <small class="arrowLabel">Overview</small>
+            </div>
+            <div class="pieContainer">
+              <div id="contPie"></div>
+              <div id="contPie2"></div>
+              <div id="contPie3"></div>
+            </div>
+            <div class="arrowContainer downArrowContainer">
+              <small class="arrowLabel">Expenditures</small><br/>
+              <i class="scrollDownArrow arrow material-icons toExpend">keyboard_arrow_down</i>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="arrowContainer upArrowContainer">
+              <i class="scrollUpArrow arrow material-icons toContrib">keyboard_arrow_up</i><br/>
+              <small class="arrowLabel">Contributions</small>
+            </div>
+            <div class="pieContainer">
+              <div id="expPie"></div>
+              <div id="expPie2"></div>
+              <div id="expPie3"></div>
+            </div>
+        </div>
+
+      </div>
+    <!-- </div> -->
+
+  </div>
+
+  <div id='search'>
+    <form id='search_form'>
+      <input id='search_box' type='text' name='search' placeholder="Politician Name"></input>
+      <div id='search-exit-logo'>
+        <i id='search-exit-logo-icon' class='material-icons'>search</i>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}
