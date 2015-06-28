@@ -1,27 +1,19 @@
 var SERVER = "http://politistats.herokuapp.com";
 
-//DEBUG USE ONLY
-var cid = "N00009960";
-
 var db = {
-  function getCandidateInfo(cid) {
-    $.ajax(SERVER + '/data/candidate/info/' + cid)
-      .done(function(data) {
-        return data;
-      });
-  }
+  getCandidateInfo: function(cid, cb) {
+      $.ajax(SERVER + '/data/candidate/info/' + cid).done(cb);
+    },
 
-  function getCandidateContributions(cid) {
-    $.ajax(SERVER + '/data/candidate/contributions/' + cid)
-      .done(function(data) {
-        return data;
-      });
-  }
+  getCandidateContributions: function(cid, cb) {
+      $.ajax(SERVER + '/data/candidate/contributions/' + cid).done(cb);
+    },
 
-  function getCandidateExpenditures(cid) {
-    $.ajax(SERVER + '/data/candidate/expenditures/' + cid)
-      .done(function(data) {
-        return data;
-      });
-  }
+  getCandidateExpenditures: function(cid, cb) {
+      $.ajax(SERVER + '/data/candidate/expenditures/' + cid).done(cb);
+    },
+
+  getCandidateId: function(cname, cb) {
+      $.ajax(SERVER + '/data/candidate/getid/' + cname).done(cb);
+    }
 }
