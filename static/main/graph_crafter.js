@@ -115,7 +115,8 @@ Drawing.PoliticalGraph = function(options) {
           }
         },
         clicked: function(obj) {
-          searchCandidateById(obj.id);
+          if ($.getUrlVars('id').id == obj.id) return;
+          window.location.replace("http://127.0.0.1:8000/?id=" + obj.id);
         }
       });
     }
@@ -181,10 +182,10 @@ Drawing.PoliticalGraph = function(options) {
        var target_depth = parent_node.data.depth + 1;
 
        var target_node = new Node(neighbors[i].pac_id || neighbors[i].candidate_id, { db_id: neighbors[i].pac_id || neighbors[i].candidate_id,
-         node_party: neighbors[i].pac_party || neighbors[i].candidate_party,
+         node_party: neighbors[i].pac_party || neighbors[i].candidate_party, name: neighbors[i].pac_name || neighbors[i].candidate_name,
          weight: neighbors[i].amount, depth: target_depth});
        if (graph.addNode(target_node)) {
-         target_node.data.title = "This is node " + target_node.id;
+         target_node.data.title = target_node.data.name;
          parent_node.addChild(target_node, target_node.data.weight);
          target_neighbor_nodes.push(target_node);
        }
@@ -323,9 +324,9 @@ Drawing.PoliticalGraph = function(options) {
   function drawNode(node) {
     var node_color;
     if (node && node.data && node.data.node_party) {
-      node_color = partyColorMap[node.data.node_party] || "#607DB8";
+      node_color = partyColorMap[node.data.node_party] || "#F5F5F5";
     } else {
-      node_color =  "#607DB8";
+      node_color =  "#F5F5F5";
     }
     var size = Math.min(Math.max(Math.abs(node.data.subtree_weight)/10, 25), 500);
     // console.log(size);
@@ -334,11 +335,17 @@ Drawing.PoliticalGraph = function(options) {
 
     if(that.show_labels) {
       if(node.data.title != undefined) {
-        var label_object = new THREE.Label(node.data.title);
+        label_object = new THREE.Label(node.data.title, {color: 0xffffff});
+        label_object.translateZ(-100);
+        label_object.material.color.setHex(0x000000);
       } else {
-        var label_object = new THREE.Label(node.id);
+        label_object = new THREE.Label(node.id, {color: 0xffffff});
+        label_object.translateZ(-100);
+        label_object.material.color.set(new THREE.Color(0xffffff));
       }
       node.data.label_object = label_object;
+
+      console.log("cry");
       scene.add( node.data.label_object );
     }
 

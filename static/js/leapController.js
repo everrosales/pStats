@@ -1,22 +1,31 @@
 var controllerOptions = { enableGestures: true };
 
+var isPinned = false;
+
 var controller = Leap.loop(controllerOptions, function(frame) {
   //handle data. maybe define new gestures.
+
+  console.log(frame);
+  for (var i = 0; i < frame.hands.length; i++) {
+
+  }
 });
 
+function handleSwipe(gesture) {
+  console.log(gesture);
+}
+
 controller.on("gesture", function(gesture) {
-  switch (gesture.type){
-    case "circle":
+  if (gesture.type == 'circle') {
       console.log("Circle Gesture");
-      break;
-    case "keyTap":
+  }
+  if (gesture.type == 'keyTap') {
       console.log("Key Tap Gesture");
-      break;
-    case "screenTap":
+  }
+  if (gesture.type == 'screenTap') {
       console.log("Screen Tap Gesture");
-      break;
-    case "swipe":
-      console.log("Swipe Gesture");
-      break;
+  }
+  if (gesture.type == 'swipe') {
+    handleSwipe(gesture);
   }
 });

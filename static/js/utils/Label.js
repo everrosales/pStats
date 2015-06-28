@@ -24,12 +24,13 @@ THREE.Label = function(text, parameters) {
   function create() {
     var xc = labelCanvas.getContext("2d");
     var fontsize = "40pt";
-
+    xc.fillStyle = '#ffffff';
     // set font size to measure the text
     xc.font = fontsize + " Arial";
     var len = xc.measureText(text).width;
 
     labelCanvas.setAttribute('width', len);
+
 
     // set font size again cause it will be reset
     // when setting a new width
@@ -37,7 +38,7 @@ THREE.Label = function(text, parameters) {
     xc.textBaseline = 'top';
     xc.fillText(text, 0, 0);
 
-    var geometry = new THREE.CubeGeometry(len, 200, 0);
+    var geometry = new THREE.CubeGeometry(len, 200, 200);
     var xm = new THREE.MeshBasicMaterial({map: new THREE.Texture(labelCanvas), transparent: true});
     xm.map.needsUpdate = true;
 
