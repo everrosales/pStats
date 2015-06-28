@@ -204,6 +204,17 @@ svg{
   background-color:white;
 }
 
+#logo {
+  z-index: 3;
+  position: absolute;
+  left: 13px;
+  top: 13px;
+}
+
+#logo_img {
+  height: 58px;
+}
+
 #search_box {
   width: 350px;
 
