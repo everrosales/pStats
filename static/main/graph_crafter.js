@@ -116,7 +116,7 @@ Drawing.PoliticalGraph = function(options) {
         },
         clicked: function(obj) {
           if ($.getUrlVars('id').id == obj.id) return;
-          window.location.replace("http://127.0.0.1:8000/?id=" + obj.id);
+          window.location.replace(SERVER + "?id=" + obj.id);
         }
       });
     }

@@ -222,8 +222,8 @@ function openInfoPanel(cid) {
     // get wiki intro info for this candidate.
     getWikipediaIntro(cname, function(data) {
       var pageid = Object.keys(data.query.pages)[0];
-      var intro = data.query.pages[pageid].extract.trim();
-      if (intro !== "") {
+      var intro = data.query.pages[pageid].extract;
+      if (intro !== undefined && intro.trim() !== "") {
         $('#wiki_info').show();
         $('#wiki_info_label').text(intro);
         $('#wiki_info_link_href').attr('href', "http://wikipedia.org/wiki/" + cname);
