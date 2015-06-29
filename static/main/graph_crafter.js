@@ -152,10 +152,12 @@ Drawing.PoliticalGraph = function(options) {
     if (candidate_id[0] == "N") {
       // info_url = "http://politistats.herokuapp.com/data/candidate/info/" + candidate_id;
       neighbor_url= "http://politistats.herokuapp.com/data/candidate/contributions/" + candidate_id + "/10";
+      neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/5";
       // neighbor_url_to= "http://politistats.herokuapp.com/data/committee/expenditures/" + candidate_id + "/10";
     } else {
       // info_url = "http://politistats.herokuapp.com/data/committee/info" + candidate_id;
       neighbor_url= "http://politistats.herokuapp.com/data/committee/contributions/" + candidate_id + "/10";
+      neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/5";
       // neighbor_url_to= "http://politistats.herokuapp.com/data/committee/expenditures/" + candidate_id + "/10";
     }
      pendingRequests++;
@@ -168,6 +170,7 @@ Drawing.PoliticalGraph = function(options) {
        alert("well...funny story");
      }});
    }
+
 
    function createRootGraph(info, neighbors, id) {
      var step = 0;
@@ -183,8 +186,8 @@ Drawing.PoliticalGraph = function(options) {
      for (var i = 0; i < neighbors.length; i++) {
        var target_depth = parent_node.data.depth + 1;
 
-       var target_node = new Node(neighbors[i].pac_id || neighbors[i].candidate_id, { db_id: neighbors[i].pac_id || neighbors[i].candidate_id,
-         node_party: neighbors[i].pac_party || neighbors[i].candidate_party, name: neighbors[i].pac_name || neighbors[i].candidate_name,
+       var target_node = new Node(neighbors[i].recipient_id, { db_id: neighbors[i].recipient_id,
+         node_party: neighbors[i].receipient_code, name: neighbors[i].recipient_name,
          weight: neighbors[i].amount, depth: target_depth});
        if (graph.addNode(target_node)) {
          target_node.data.title = target_node.data.name;
@@ -204,7 +207,6 @@ Drawing.PoliticalGraph = function(options) {
      target_neighbor_nodes = [];
      for (var i = 0; i < neighbors.length; i++) {
        var target_depth = parent_node.data.depth + 1;
-
        var target_node = new Node(neighbors[i].pac_id || neighbors[i].candidate_id, { db_id: neighbors[i].pac_id || neighbors[i].candidate_id,
          node_party: neighbors[i].pac_party || neighbors[i].candidate_party, name: neighbors[i].pac_name || neighbors[i].candidate_name,
          weight: neighbors[i].amount, depth: target_depth});
@@ -217,7 +219,7 @@ Drawing.PoliticalGraph = function(options) {
     //  renderChildren(parent_node);
      for (var i = 0; i < target_neighbor_nodes.length; i++) {
        var target_node = target_neighbor_nodes[i];
-       if (target_node.data.depth < 2) queryAndAddPoints(target_node, target_node.data.db_id || target_node.data.db_id, root_node);
+       if (target_node.data.depth < 2) queryAndAddPoints(target_node, target_node.data.db_id || target_node.id, root_node);
      }
     //  renderGraph(root_node)
 
@@ -231,11 +233,11 @@ Drawing.PoliticalGraph = function(options) {
      if (candidate_id[0] == "N") {
       //  info_url = "http://politistats.herokuapp.com/data/candidate/info/" + candidate_id;
        neighbor_url= "http://politistats.herokuapp.com/data/candidate/contributions/" + candidate_id + "/10";
-       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/15"
+       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/5";
      } else {
       //  info_url = "http://politistats.herokuapp.com/data/committee/info" + candidate_id;
        neighbor_url= "http://politistats.herokuapp.com/data/committee/contributions/" + candidate_id + "/10";
-       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/15"
+       neighbor_url_out = "http://politistats.herokuapp.com/data/candidate/expenditures/" + candidate_id + "/5";
      }
      pendingRequests++;
 
